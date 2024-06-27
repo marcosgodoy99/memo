@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Request;
 class CheckRole
 {
     public function handle($request, Closure $next, ...$roles)
@@ -14,7 +14,7 @@ class CheckRole
         foreach ($roles as $role) {
           
             if ($user->hasRole($role)) {
-                return $next($request);
+               return $next($request);
             }
         }
        

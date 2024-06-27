@@ -16,7 +16,8 @@ class Client extends Model
         'username',
         'address',
         'cuit',
-        'phone'
+        'phone',
+        'users_id'
     ];
 
     public function users(){

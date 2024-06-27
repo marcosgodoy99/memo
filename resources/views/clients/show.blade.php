@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    Client Information
+                    Informacion de los soretes de los clientes
                 </div>
                 <div class="float-end">
                     <a href="{{ route('clients.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
@@ -19,42 +19,49 @@
                     <div class="row">
                         <label for="username" class="col-md-4 col-form-label text-md-end text-start"><strong>Username:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $client->username }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="password" class="col-md-4 col-form-label text-md-end text-start"><strong>Password:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $client->password }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start"><strong>Name:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $client->name }}
+                            {{ $client[0]->username }}
                         </div>
                     </div>
 
                     <div class="row">
                         <label for="address" class="col-md-4 col-form-label text-md-end text-start"><strong>Address:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $client->address }}
+                            {{ $client[0]->address }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="cuit" class="col-md-4 col-form-label text-md-end text-start"><strong>Name:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $client[0]->cuit }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="email" class="col-md-4 col-form-label text-md-end text-start"><strong>Email:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $client[0]->email }}
                         </div>
                     </div>
 
                     <div class="row">
                         <label for="phone" class="col-md-4 col-form-label text-md-end text-start"><strong>Phone:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $client->phone }}
+                            {{ $client[0]->phone }}
                         </div>
                     </div>
 
                     <div class="row">
-                        <label for="cuit" class="col-md-4 col-form-label text-md-end text-start"><strong>CUIT:</strong></label>
+                        <label for="created_at" class="col-md-4 col-form-label text-md-end text-start"><strong>Fecha de ingreso:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $client->cuit }}
+                            {{ $client[0]->created_at }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="users_id" class="col-md-4 col-form-label text-md-end text-start"><strong>ID del Usuario:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $client[0]->users_id }}
                         </div>
                     </div>
         

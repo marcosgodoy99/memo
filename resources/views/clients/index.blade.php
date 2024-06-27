@@ -21,7 +21,6 @@
                       <tr>
                         <th scope="col">S#</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Name</th>
                         <th scope="col">Address</th>
                         <th scope="col">CUIT</th>
                         <th scope="col">Phone</th>

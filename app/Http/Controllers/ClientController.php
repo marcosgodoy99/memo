@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreClientRequest;
@@ -51,10 +52,19 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Client $client) : View
+    public function show(User $client) : View
     {
+        $idClient=$client->id;
+
+        $clients=DB::select('
+        SELECT *
+        FROM users
+        inner join clients on clients.users_id = users.id 
+        WHERE 
+        users_id = :userId',['userId'=>$idClient]);
+        
         return view('clients.show', [
-            'client' => $client
+            'client' => $clients
         ]);
     }
 

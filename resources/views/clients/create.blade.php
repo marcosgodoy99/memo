@@ -28,25 +28,6 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 row">
-                        <label for="password" class="col-md-4 col-form-label text-md-end text-start">Password</label>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control @error('username') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}">
-                            @if ($errors->has('password'))
-                                <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
-                            @if ($errors->has('name'))
-                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                            @endif
-                        </div>
-                    </div>
 
                     <div class="mb-3 row">
                         <label for="address" class="col-md-4 col-form-label text-md-end text-start">Address</label>
@@ -74,6 +55,15 @@
                           <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}">
                             @if ($errors->has('phone'))
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="users_id" class="col-md-4 col-form-label text-md-end text-start">Id Cliente</label>
+                        <div class="col-md-6">
+                          <input type="number" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" value="{{ old('users_id') }}">
+                            @if ($errors->has('users_id'))
+                                <span class="text-danger">{{ $errors->first('users_id') }}</span>
                             @endif
                         </div>
                     </div>
