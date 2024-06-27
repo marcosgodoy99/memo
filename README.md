@@ -1,10 +1,4 @@
-# Simple Laravel 10 CRUD Application Tutorial
-Learn how to develop a simple Laravel 10 CRUD application
-
-> The complete tutorial step by step guide is available on my blog. [Laravel 10 CRUD Application](https://www.allphptricks.com/simple-laravel-10-crud-application/)
-
-## Blog
-https://www.allphptricks.com/
+# Proyecto Memo
 
 
 ## Installation 
