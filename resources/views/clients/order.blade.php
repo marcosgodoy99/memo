@@ -49,7 +49,7 @@
                         @empty
                             <td colspan="6">
                                 <span class="text-danger">
-                                    <strong>No Product Found!</strong>
+                                    <strong> No ha hecho ninguna orden !!</strong>
                                 </span>
                             </td>
                         @endforelse

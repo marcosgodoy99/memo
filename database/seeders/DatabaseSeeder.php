@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
-use App\Models\Rol;
+//use App\Models\Rol;
 use App\Models\User;
 
 class DatabaseSeeder extends Seeder 
@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void 
     {
 
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        /*app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         // Crear permisos
         Permission::create(['name' => 'todo']);
         Permission::create(['name' => 'cliente']);
@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
         $role2->givePermissionTo('cliente');
        
         $role3 = Role::create(['name' => 'proeveedor']);
-        $role3->givePermissionTo('proveedor');
+        $role3->givePermissionTo('proveedor');*/
 
         // Crear usuarios de demostración
         $user = User::factory()->create([
-            'name' => 'Jose Ramirez',
-            'email' => 'admin@example.com',
+            'name' => 'Agustin Cabrera Kbe',
+            'email' => 'agustinhloa@gmail.com',
         ]);
 
         //$rol3 = Rol::create(['rol' => 'admin']);
