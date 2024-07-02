@@ -71,10 +71,19 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Client $client) : View
+    public function edit(User $client) : View
     {
+        $idClient=$client->id;
+
+        $clients=DB::select('
+        SELECT *
+        FROM users
+        inner join clients on clients.users_id = users.id 
+        WHERE 
+        users_id = :userId',['userId'=>$idClient]);
+        
         return view('clients.edit', [
-            'client' => $client
+            'clients' => $clients
         ]);
     }
 

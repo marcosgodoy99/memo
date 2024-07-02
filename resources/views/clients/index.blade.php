@@ -20,11 +20,11 @@
                     <thead>
                       <tr>
                         <th scope="col">S#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Address</th>
+                        <th scope="col">Nombre Usuario</th>
+                        <th scope="col">Direccion</th>
                         <th scope="col">CUIT</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -32,7 +32,6 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $client->username }}</td>
-                            <td>{{ $client->name }}</td>
                             <td>{{ $client->address }}</td>
                             <td>{{ $client->cuit }}</td>
                             <td>{{ $client->phone }}</td>

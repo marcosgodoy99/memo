@@ -21,14 +21,14 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('clients.update', $client->users_id) }}" method="post">
+                <form action="{{ route('clients.update', $clients[0]->users_id) }}" method="post">
                     @csrf
                     @method("PUT")
 
                     <div class="mb-3 row">
                         <label for="username" class="col-md-4 col-form-label text-md-end text-start">Username</label>
                         <div class="col-md-6">
-                          <input type="username" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $client->username }}">
+                          <input type="username" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $clients[0]->username }}">
                             @if ($errors->has('username'))
                                 <span class="text-danger">{{ $errors->first('username') }}</span>
                             @endif
@@ -38,7 +38,7 @@
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $client->name }}">
+                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $clients[0]->name }}">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
@@ -48,7 +48,7 @@
                     <div class="mb-3 row">
                         <label for="address" class="col-md-4 col-form-label text-md-end text-start">Address</label>
                         <div class="col-md-6">
-                            <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address">{{ $client->address }}</textarea>
+                            <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address">{{ $clients[0]->address }}</textarea>
                             @if ($errors->has('address'))
                                 <span class="text-danger">{{ $errors->first('address') }}</span>
                             @endif
@@ -58,7 +58,7 @@
                     <div class="mb-3 row">
                         <label for="cuit" class="col-md-4 col-form-label text-md-end text-start">CUIT</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $client->cuit }}">
+                          <input type="text" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $clients[0]->cuit }}">
                             @if ($errors->has('cuit'))
                                 <span class="text-danger">{{ $errors->first('cuit') }}</span>
                             @endif
@@ -68,7 +68,7 @@
                     <div class="mb-3 row">
                         <label for="phone" class="col-md-4 col-form-label text-md-end text-start">Phone</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ $client->phone }}">
+                          <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ $clients[0]->phone }}">
                             @if ($errors->has('phone'))
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
                             @endif
