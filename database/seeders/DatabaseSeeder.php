@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
-//use App\Models\Rol;
+use App\Models\Role;
 use App\Models\User;
+use DB;
 
 class DatabaseSeeder extends Seeder 
 {
@@ -15,16 +16,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void 
     {
 
-        /*app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         // Crear permisos
-        Permission::create(['name' => 'todo']);
-        Permission::create(['name' => 'cliente']);
-        Permission::create(['name' => 'proveedor']);
+        Permission::create(['name' => 'admin',
+                            'guard_name' => 'web']);
 
-        $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(['todo','cliente','proveedor']);
+        $role = Role::create(['name' => 'admin',
+                             'guard_name' => 'web']);
         
-        $role2 = Role::create(['name' => 'comprador']);
+        $role->givePermissionTo(['admin']);
+        
+        /*$role2 = Role::create(['name' => 'comprador']);
         $role2->givePermissionTo('cliente');
        
         $role3 = Role::create(['name' => 'proeveedor']);
@@ -32,12 +34,41 @@ class DatabaseSeeder extends Seeder
 
         // Crear usuarios de demostración
         $user = User::factory()->create([
-            'name' => 'Agustin Cabrera Kbe',
-            'email' => 'agustinhloa@gmail.com',
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
         ]);
 
-        //$rol3 = Rol::create(['rol' => 'admin']);
-        //$rol3->asignarPermiso('all'); // Asignar permiso 'all' al rol 'admin'
-        //$user->asignarRol($rol3); // Asignar rol 'admin' al usuario
+        $user->assignRole($role); // Asignar rol 'admin' al usuario
+       
+        $this->insertModelHasPermissions();
+        $this->insertModelHasRoles();
+        $this->insertRoleHasPermissions();
+    }
+    
+
+    public function insertModelHasPermissions()
+    {
+        DB::table('model_has_permissions')->insert([
+            'permission_id' => 1,
+            'model_type' => 'App\Models\Users', // Ajusta el namespace del modelo si es necesario
+            'model_id' => 1, // ID de usuario
+        ]);
+    }
+
+    public function insertModelHasRoles()
+    {
+        DB::table('model_has_roles')->insert([
+            'role_id' => 1,
+            'model_type' => 'App\Models\Users', // Ajusta el namespace del modelo si es necesario
+            'model_id' => 1, // ID de usuario
+        ]);
+    }
+
+    public function insertRoleHasPermissions()
+    {
+        DB::table('role_has_permissions')->insert([
+            'permission_id' => 1,
+            'role_id' => 1,
+        ]);
     }
 }

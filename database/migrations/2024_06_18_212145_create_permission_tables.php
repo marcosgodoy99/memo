@@ -66,6 +66,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('users') 
                 ->onDelete('cascade');
+                
             if ($teams) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
@@ -95,6 +96,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('users') 
                 ->onDelete('cascade');
+                
             if ($teams) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
