@@ -17,12 +17,12 @@
                     </x-nav-link>
                     
                     
+                    @can('admin')
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                         {{ __('Lista de Productos') }}
                     </x-nav-link>
                     
                     
-                    @can('admin')
                     <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
                         {{ __('Lista de Clientes') }}
                     </x-nav-link>

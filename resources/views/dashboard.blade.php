@@ -73,7 +73,7 @@ overflow: hidden;
                   {{ $message }}
               </div>
           @endif
-  <div class="product-container">
+  <div class="product-container" >
     <!-- Primer Producto -->
     @foreach ($products as $product)
     <div class="product-card">

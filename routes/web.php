@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //Route::resource('/clients', ClientController::class);
-Route::resource('/products', ProductController::class);
+
 Route::post('/orders', [OrderController::class, 'order'])->name('orders.order');
 Route::get('/orders/product', [OrderController::class, 'orderCart'])->name('orders.orderCart');
 Route::delete('/orders/{orders}',[OrderController::class, 'delete'])->name('orders.destroy');
@@ -56,8 +56,9 @@ Route::get('/orders/user', [ClientController::class, 'orderUser'])->name('client
 //Route::resource('clients', ClientController::class);
 //Route::get('login', [ClientController::class, 'login'])->name('login');
 Route::view('/products/home', 'products.home')->name('products.home');
-
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    
+    Route::resource('/products', ProductController::class); 
     Route::resource('/clients', ClientController::class)->names([
         'index' => 'clients.index',
         'create' => 'clients.create',

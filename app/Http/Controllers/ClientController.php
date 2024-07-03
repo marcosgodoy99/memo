@@ -54,6 +54,7 @@ class ClientController extends Controller
      */
     public function show(User $client) : View
     {
+    
         $idClient=$client->id;
 
         $clients=DB::select('
@@ -100,9 +101,17 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client) : RedirectResponse
+    public function destroy(User $client) 
     {
-        $client->delete();
+        $idClient=$client->id;
+        
+        $deleted = DB::delete('
+            DELETE clients
+            FROM clients
+            INNER JOIN users ON clients.users_id = users.id
+            WHERE users_id = :userId
+        ', ['userId' => $idClient]);
+        
         return redirect()->route('clients.index')
                 ->withSuccess('Client is deleted successfully.');
     }
