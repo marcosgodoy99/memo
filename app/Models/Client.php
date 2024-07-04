@@ -10,8 +10,6 @@ class Client extends Model
 {
     use HasRoles, HasFactory;
 
-    
-
     protected $fillable = [
         'username',
         'address',

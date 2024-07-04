@@ -17,6 +17,7 @@
                     Edit Client
                 </div>
                 <div class="float-end">
+                    <p>{{$clients[0]->name}}</p>
                     <a href="{{ route('clients.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
                 </div>
             </div>
@@ -36,16 +37,6 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $clients[0]->name }}">
-                            @if ($errors->has('name'))
-                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
                         <label for="address" class="col-md-4 col-form-label text-md-end text-start">Address</label>
                         <div class="col-md-6">
                             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address">{{ $clients[0]->address }}</textarea>
@@ -58,7 +49,7 @@
                     <div class="mb-3 row">
                         <label for="cuit" class="col-md-4 col-form-label text-md-end text-start">CUIT</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $clients[0]->cuit }}">
+                          <input type="number" min="10000000000" max="1000000000000" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $clients[0]->cuit }}">
                             @if ($errors->has('cuit'))
                                 <span class="text-danger">{{ $errors->first('cuit') }}</span>
                             @endif
@@ -74,6 +65,8 @@
                             @endif
                         </div>
                     </div>
+
+                    <input type="hidden" name="users_id" value="{{$clients[0]->users_id}}">
                     
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update">

@@ -22,7 +22,7 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|string|unique:clients,username,'.$this->client->id,
+            'username' => 'required|string|unique:clients,username,'.$this->client->users_id,
             'address' => 'nullable|string',
             'cuit' => 'nullable|string',
             'phone' => 'nullable|string'
