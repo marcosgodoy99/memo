@@ -24,7 +24,7 @@ class StoreClientRequest extends FormRequest
         return [
             'username' => 'required|string|unique:clients,username',
             'address' => 'nullable|string',
-            'cuit' => 'nullable|string',
+            'cuit' => 'nullable|integer|digits_between:8,11',
             'phone' => 'nullable|string',
             'users_id'=> 'required|integer',    
         ];

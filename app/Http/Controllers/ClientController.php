@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\User;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -12,8 +12,8 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 
 class ClientController extends Controller
 {
@@ -100,7 +100,7 @@ class ClientController extends Controller
     $request->validate([
         'username' => 'required|string',
         'address' => 'required|string|min:3|max:100',
-        'cuit' => 'required|integer',
+        'cuit' => 'required|integer|digits_between:8,11',
         'phone' => 'required'
     ]);
 
@@ -142,15 +142,16 @@ class ClientController extends Controller
         $userId = Auth::id();
         $orders=DB::select('
             SELECT 
+                orders.id,
                 orders.products_id,
-	            products.*,	
-                COUNT(*) AS cantidad_productos
+                orders.quantity,
+	            products.name,
+                products.price
             FROM orders
-            inner join products on products.id = orders.products_id 
-	        WHERE 
-                users_id = :userId
-            GROUP BY orders.products_id',['userId'=>$userId]);
-
+            inner join products on products.id = orders.products_id
+            WHERE  users_id = :userId 
+            ORDER BY orders.products_id',["userId" => $userId]);
+    
 
         return view('clients.order', [
                 'orders' => $orders, 

@@ -21,7 +21,7 @@
                         <th scope="col">S#</th>
                         <th scope="col">Code</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Price</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -32,7 +32,7 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->stock }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
                             

@@ -22,7 +22,7 @@
                         <th scope="col">S#</th>
                         <th scope="col">Code</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Price</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -33,18 +33,18 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->stock }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
                             
-                            @can('delete articles')
+                            
                                 <form action="{{ route('products.destroy', $product->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
 
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this product?');"><i class="bi bi-trash"></i> Delete</button>
-                                    @endcan
+                                    
                                     
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
                                     

@@ -65,7 +65,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
     {
         $product->update($request->all());
-        return redirect()->back()
+        return redirect()->route('products.index')
                 ->withSuccess('Product is updated successfully.');
     }
 

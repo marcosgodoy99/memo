@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Order;
 use Illuminate\View\View;
@@ -10,16 +11,32 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 
 class OrderController extends Controller
 {
     
-public function order(Request $request)
-    { Order::create([
-        'products_id' => $request->products_id,
-        'users_id' => $request->users_id
-        ]);
+public function order(Request $request){
+        
+        $order=DB::Select(' SELECT *
+            FROM orders
+            WHERE users_id = :user_id  AND products_id = :products_id ' 
+            ,['user_id'=> $request->users_id, 'products_id' => $request->products_id]);
+
+            if ($order) {
+                DB::table('orders')
+                  ->where('users_id', $request->users_id)
+                  ->where('products_id', $request->products_id)
+                  ->update(['quantity' => DB::raw('quantity + ' . $request->quantity)]);
+            } else {
+                
+                Order::create([
+                    'users_id' => $request->users_id,
+                    'products_id' => $request->products_id,
+                    'quantity' => $request->quantity
+                ]);
+            }
         return redirect()->route('dashboard')
                 ->with('success','Se agrego un producto ('.$request->name.') a la orden');
     }
@@ -30,17 +47,35 @@ public function order(Request $request)
             'products'=>$products
         ]);
     }
-    public function delete(Order $orders){
+    public function delete(Order $orders, $products_id)
+    {
         
-
-
-        //$userId = Auth::id();        
-        //DB::table('orders')->where('products_id', $orders->products_id)->where('users_id',$userId)->delete();
+        $userId = Auth::id();        
+        DB::table('orders')->where('products_id', $products_id)->where('users_id',$userId)->limit(1)->delete();
+        
         return redirect()->route('clients.order')
         ->withSuccess('Order is deleted successfully.');    
     }
-    public function show(){
-        dd("en mantenimiento");
+    public function show($id) : View
+    {   
+        
+        $orders=DB::select('SELECT 
+                            orders.id,
+                            orders.products_id,
+                            orders.quantity,
+                            products.name,
+                            products.links,
+                            products.price,
+                            products.code,
+                            products.description,
+                            products.stock
+                        FROM orders
+                        inner join products on products.id = orders.products_id 
+                        ORDER BY orders.products_id');
+
+        return view('clients.showOrder', [
+                'orders' => $orders, 
+        ]);
     }
 
 }

@@ -17,10 +17,10 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">nombre</th>
-                        <th scope="col">precio</th>
-                        <th scope="col">cantidad de productos</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad de productos</th>
                 
                         <th scope="col">Action</th>
                       </tr>
@@ -31,7 +31,7 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $order-> name }}</td>
                             <td>{{ $order->price }}</td>
-                            <td>{{ $order->cantidad_productos }}</td>
+                            <td>{{ $order->quantity }}</td>
                             
                             <td>
                             

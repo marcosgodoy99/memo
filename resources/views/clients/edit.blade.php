@@ -49,7 +49,7 @@
                     <div class="mb-3 row">
                         <label for="cuit" class="col-md-4 col-form-label text-md-end text-start">CUIT</label>
                         <div class="col-md-6">
-                          <input type="number" min="10000000000" max="1000000000000" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $clients[0]->cuit }}">
+                          <input type="number" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $clients[0]->cuit }}">
                             @if ($errors->has('cuit'))
                                 <span class="text-danger">{{ $errors->first('cuit') }}</span>
                             @endif

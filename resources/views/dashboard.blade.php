@@ -64,7 +64,22 @@ overflow: hidden;
     color: #fff;
     border: none;
     cursor: pointer;
+
+    
   }
+
+  .product-quantity {
+    width: 50px; 
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #f9f9f9; 
+  }
+ 
+
 </style>
 </head>
 <body>
@@ -87,6 +102,7 @@ overflow: hidden;
           <input type="hidden" name="products_id" value="{{ $product->id }}">
           <input type="hidden" name="users_id" value="{{ $users->id }}">
           <input type="hidden" name="name" value="{{$product->name}}">
+          <input type="number" class="product-quantity" name="quantity" min="1" value="1">
           <button class="product-button" type="submit">Comprar</button>
         </form>
     </div>

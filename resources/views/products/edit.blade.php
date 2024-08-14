@@ -46,11 +46,11 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="quantity" class="col-md-4 col-form-label text-md-end text-start">Quantity</label>
+                        <label for="stock" class="col-md-4 col-form-label text-md-end text-start">stock</label>
                         <div class="col-md-6">
-                          <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ $product->quantity }}">
-                            @if ($errors->has('quantity'))
-                                <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                          <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock" name="stock" value="{{ $product->stock }}">
+                            @if ($errors->has('stock'))
+                                <span class="text-danger">{{ $errors->first('stock') }}</span>
                             @endif
                         </div>
                     </div>
