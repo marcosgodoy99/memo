@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
+use Livewire\Component;
 
 class OrderController extends Controller
 {

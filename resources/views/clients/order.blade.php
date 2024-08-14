@@ -1,6 +1,7 @@
 @extends('products.layouts')
-
 @section('content')
+@livewireScripts
+@livewireStyles
 <x-app-layout>
 <div class="row justify-content-center mt-3">
     <div class="col-md-12">
@@ -17,22 +18,17 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Cantidad de productos</th>
-                
                         <th scope="col">Action</th>
+                        <th scope="col">Cantidad </th>
+                        <th scope="col">Precio</th>
                       </tr>
                     </thead>
                     <tbody>
                         @forelse ($orders as $order)
                         <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
+
                             <td>{{ $order-> name }}</td>
-                            <td>{{ $order->price }}</td>
-                            <td>{{ $order->quantity }}</td>
-                            
                             <td>
                             
                                 <form action="{{ route('orders.destroy', $order->products_id) }}" method="post">
@@ -43,8 +39,15 @@
 
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this order?');"><i class="bi bi-trash"></i> Delete</button>
                                 </form>
+                               
+                            </td>
+                            
+                            <td>{{ $order->quantity }}
+                                <livewire:livewireController />
                                 
                             </td>
+
+                            <td>{{ $order->precio_orden}}</td>
                         </tr>
                         @empty
                             <td colspan="6">

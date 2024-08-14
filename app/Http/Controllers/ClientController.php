@@ -141,7 +141,7 @@ class ClientController extends Controller
        
         $userId = Auth::id();
         $orders=DB::select('
-            SELECT 
+            SELECT orders.quantity * products.price as precio_orden,
                 orders.id,
                 orders.products_id,
                 orders.quantity,
