@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    @livewireStyles
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,6 +11,7 @@
     
 </head>
 <body>
+    @livewireScripts
     <div class="container">
             @yield('content')
         <div class="row justify-content-center text-center mt-3">

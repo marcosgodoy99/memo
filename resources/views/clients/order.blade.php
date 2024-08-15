@@ -1,7 +1,6 @@
-@extends('products.layouts')
+@extends('clients.layouts')
 @section('content')
-@livewireScripts
-@livewireStyles
+
 <x-app-layout>
 <div class="row justify-content-center mt-3">
     <div class="col-md-12">
@@ -28,7 +27,7 @@
                         @forelse ($orders as $order)
                         <tr>
 
-                            <td>{{ $order-> name }}</td>
+                            <td>{{ $order->name }}</td>
                             <td>
                             
                                 <form action="{{ route('orders.destroy', $order->products_id) }}" method="post">
@@ -43,7 +42,8 @@
                             </td>
                             
                             <td>{{ $order->quantity }}
-                                <livewire:livewireController />
+                                
+                                    <livewire:livewireController />
                                 
                             </td>
 
