@@ -39,12 +39,9 @@
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this order?');"><i class="bi bi-trash"></i> Delete</button>
                                 </form>
                                
-                            </td>
-                            
-                            <td>{{ $order->quantity }}
-                                
-                                    <livewire:livewireController />
-                                
+                            </td>                            
+                            <td>
+                                <livewire:livewire-controller :idProducto="$order->products_id"/>
                             </td>
 
                             <td>{{ $order->precio_orden}}</td>
@@ -63,5 +60,6 @@
         </div>
     </div>    
 </div>
+
 </x-app-layout>
 @endsection
