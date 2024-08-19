@@ -1,6 +1,5 @@
 <div>
     
-
     <button class="btn btn-sm btn-primary custom-button" wire:click="cambiarCantidad('incrementar')">
         <i class="bi bi-arrow-up-short"></i>
     </button>

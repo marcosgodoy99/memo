@@ -47,12 +47,17 @@ class LivewireController extends Component
                 ->increment('quantity');
             $this->cantidadProducto++;
         } elseif ($operacion == 'decrementar') {
-            if ($cantidadActual > 0) {
+            if ($cantidadActual >= 1) {
                 DB::table('orders')
                     ->where('users_id', $this->userId)
                     ->where('products_id', $this->idProducto)
                     ->decrement('quantity');
                 $this->cantidadProducto--;
+            }else{
+                DB::table('orders')
+                ->where('products_id', $this->idProducto)
+                ->where('users_id',$this->userId)
+                ->limit(1)->delete();  
             }
         }
         $this->actualizarCantidadProducto();

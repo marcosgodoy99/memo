@@ -17,10 +17,11 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Cantidad </th>
-                        <th scope="col">Precio</th>
+                        <th scope="col">Nombre del producto</th>
+                        <th scope="col">Acciones</th>
+                        <th scope="col">Cantidad elegida</th>
+                        <th scope="col">Precio total</th>
+                        <th scope="col">Precio por unidad</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -44,7 +45,8 @@
                                 <livewire:livewire-controller :idProducto="$order->products_id"/>
                             </td>
 
-                            <td>{{ $order->precio_orden}}</td>
+                            <td class="text-primary">{{ number_format($order->precio_orden, 2, ',', '.') }}</td>
+                            <td class="text-primary">{{ number_format($order->price, 2, ',', '.') }}</td>
                         </tr>
                         @empty
                             <td colspan="6">
