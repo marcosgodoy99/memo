@@ -71,8 +71,9 @@ public function order(Request $request){
                             products.description,
                             products.stock
                         FROM orders
-                        inner join products on products.id = orders.products_id 
-                        ORDER BY orders.products_id');
+                        inner join products on products.id = orders.products_id
+                        where orders.id = :id 
+                        ORDER BY orders.products_id',['id'=>$id]);
 
         return view('clients.showOrder', [
                 'orders' => $orders, 

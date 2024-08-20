@@ -18,35 +18,41 @@
                     <thead>
                       <tr>
                         <th scope="col">Nombre del producto</th>
-                        <th scope="col">Acciones</th>
+                        
                         <th scope="col">Cantidad elegida</th>
-                        <th scope="col">Precio total</th>
                         <th scope="col">Precio por unidad</th>
+                        <th scope="col">Precio subtotal</th>
                       </tr>
                     </thead>
                     <tbody>
                         @forelse ($orders as $order)
                         <tr>
 
-                            <td>{{ $order->name }}</td>
+                            <td>{{ $order->name }}</td>                         
+                                                                                     
                             <td>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    
+                                    <livewire:livewire-controller :idProducto="$order->products_id" class="mr-3"/>
+                        
+                                    <div>
+                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-warning btn-sm mr-2">
+                                            <i class="bi bi-info-square"></i>
+                                        </a>
                             
-                                <form action="{{ route('orders.destroy', $order->products_id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
-
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this order?');"><i class="bi bi-trash"></i> Delete</button>
-                                </form>
-                               
-                            </td>                            
-                            <td>
-                                <livewire:livewire-controller :idProducto="$order->products_id"/>
+                                        <form action="{{ route('orders.destroy', $order->products_id) }}" method="post" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this order?');">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
 
-                            <td class="text-primary">{{ number_format($order->precio_orden, 2, ',', '.') }}</td>
-                            <td class="text-primary">{{ number_format($order->price, 2, ',', '.') }}</td>
+                            <td class="text-primary">${{ number_format($order->price, 2, ',', '.') }}</td>
+                            <td class="text-primary"> <livewire:livewire-subtotal :idProducto="$order->products_id" class="mr-3"/></td>
                         </tr>
                         @empty
                             <td colspan="6">
@@ -55,10 +61,20 @@
                                 </span>
                             </td>
                         @endforelse
+                     
                     </tbody>
                   </table>      
-
-            </div>
+                   <div class="text-center text-primary">
+                        <span>
+                            <h1 class="h5">
+                                Total de la orden
+                                <br>
+                                <b> ${{ number_format($totalOrder[0]->precio_orden, 2, ',', '.')}}</b>
+                            </h1>
+                        </span>
+                    </div> 
+                </div>
+                <button class="btn-custom btn-lg ">Comprar orden</button>
         </div>
     </div>    
 </div>

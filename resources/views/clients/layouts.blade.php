@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <style> .product-quantity {
+        width: 60px; 
+       
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 10px;
+        background-color: #f9f9f9; 
+      }
+      .btn-custom {
+            background-color: #5d9ff5; /* Cambia esto al color que desees */
+            color: white;
+            padding: 8px 30px; 
+            font-size: 1.25rem;
+        }
+        .btn-custom:hover {
+            background-color: #095dac; /* Color al pasar el cursor, opcional */
+        }
+      </style>
     @livewireStyles
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +31,7 @@
     
 </head>
 <body>
+    
     @livewireScripts
     <div class="container">
             @yield('content')

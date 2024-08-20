@@ -19,7 +19,6 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">S#</th>
                         <th scope="col">Code</th>
                         <th scope="col">Name</th>
                         <th scope="col">Stock</th>
@@ -30,7 +29,7 @@
                     <tbody>
                         @forelse ($products as $product)
                         <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
+                            
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->stock }}</td>

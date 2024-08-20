@@ -5,8 +5,6 @@ namespace App\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
-use App\Models\Order;
 
 class LivewireController extends Component
 {
@@ -16,13 +14,12 @@ class LivewireController extends Component
 
     public function mount($idProducto)
     {
-
         $this->userId = Auth::id();
         $this->idProducto = $idProducto;
 
         $this->actualizarCantidadProducto();
-
-          $this->cantidadProducto = DB::table('orders')
+        
+        $this->cantidadProducto = DB::table('orders')
             ->where('users_id', $this->userId)
             ->where('products_id', $this->idProducto)
             ->value('quantity');
@@ -53,17 +50,21 @@ class LivewireController extends Component
                     ->where('products_id', $this->idProducto)
                     ->decrement('quantity');
                 $this->cantidadProducto--;
-            }else{
+            } else {
                 DB::table('orders')
-                ->where('products_id', $this->idProducto)
-                ->where('users_id',$this->userId)
-                ->limit(1)->delete();  
+                    ->where('products_id', $this->idProducto)
+                    ->where('users_id', $this->userId)
+                    ->limit(1)->delete();  
             }
         }
+
+        // Actualizar cantidad
         $this->actualizarCantidadProducto();
 
-        return Redirect::route('clients.order');
+        // Emitir evento para que otros componentes actualicen sus datos
+        $this->dispatch('updateOrders');
     }
+
     public function render()
     {
         return view('livewire.livewire-controller');

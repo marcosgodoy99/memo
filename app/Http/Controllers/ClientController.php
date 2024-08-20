@@ -140,21 +140,30 @@ class ClientController extends Controller
     public function orderUser(){
        
         $userId = Auth::id();
-        $orders=DB::select('
-            SELECT orders.quantity * products.price as precio_orden,
+        $orders=DB::select('SELECT 
+                orders.quantity * products.price AS precio_orden,
                 orders.id,
                 orders.products_id,
                 orders.quantity,
-	            products.name,
+                products.name,
                 products.price
             FROM orders
-            inner join products on products.id = orders.products_id
-            WHERE  users_id = :userId 
-            ORDER BY orders.products_id',["userId" => $userId]);
+            INNER JOIN products ON products.id = orders.products_id
+            WHERE users_id = :userId
+            ORDER BY orders.products_id', ["userId" => $userId]);
+
+        $totalOrden=DB::select('SELECT 
+                                    sum(orders.quantity * products.price) AS precio_orden
+                                FROM orders
+                                INNER JOIN products ON products.id = orders.products_id
+                                WHERE 
+                                    users_id = :userId',["userId" => $userId]); 
+        
     
 
         return view('clients.order', [
-                'orders' => $orders, 
+                'orders' => $orders,
+                'totalOrder' => $totalOrden
         ]);
         
     }

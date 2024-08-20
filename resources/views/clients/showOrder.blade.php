@@ -66,7 +66,7 @@ overflow: hidden;
                     <div class="row">
                         <label for="cantidad_productos" class="col-md-4 col-form-label text-md-end text-start"><strong>Cantidad de productos seleccionados:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            <input type="number" value='{{ $orders[0]->quantity }}'>
+                            {{ $orders[0]->quantity }}
                         </div>
                     </div>
                     <div class="row">
