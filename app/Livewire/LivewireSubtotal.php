@@ -11,6 +11,7 @@ class LivewireSubtotal extends Component
     public $idProducto;
     public $userId;
     public $orders;
+    
 
     protected $listeners = ['updateOrders' => 'updateOrders'];
 
@@ -31,6 +32,7 @@ class LivewireSubtotal extends Component
             ->where('orders.products_id', $this->idProducto)
             ->select(DB::raw('orders.quantity * products.price AS precio_orden'))
             ->value('precio_orden');
+
     }
 
     public function render()

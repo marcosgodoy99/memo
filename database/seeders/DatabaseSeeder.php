@@ -7,7 +7,8 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Client;
-use DB;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder 
 {
@@ -38,7 +39,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
         ]);
-
         $client = Client::factory(1)->create();
 
         $user->assignRole($role); // Asignar rol 'admin' al usuario

@@ -63,6 +63,7 @@ class LivewireController extends Component
 
         // Emitir evento para que otros componentes actualicen sus datos
         $this->dispatch('updateOrders');
+        $this->dispatch('updateTotal');
     }
 
     public function render()

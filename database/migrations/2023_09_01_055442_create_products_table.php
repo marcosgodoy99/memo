@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->integer('stock');
             $table->decimal('price', 8, 2);
-            $table->text('description')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
-            $table->string('links', 1000);
+            $table->string('links', 1000)->nullable();
         });
     }
 

@@ -69,7 +69,7 @@
                             <h1 class="h5">
                                 Total de la orden
                                 <br>
-                                <b> ${{ number_format($totalOrder[0]->precio_orden, 2, ',', '.')}}</b>
+                                <b> <livewire:livewire-total class="mr-3"/> </b> 
                             </h1>
                         </span>
                     </div> 
@@ -78,6 +78,5 @@
         </div>
     </div>    
 </div>
-
 </x-app-layout>
 @endsection

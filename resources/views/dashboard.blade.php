@@ -86,6 +86,7 @@ overflow: hidden;
     @if ($message = Session::get('success'))
               <div class="alert alert-success" role="alert">
                   {{ $message }}
+                  <a href=" route('clients.order')"><i class="bi bi-search"></i> </a>
               </div>
           @endif
   <div class="product-container" >
