@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::get('/orders/product', [OrderController::class, 'orderCart'])->name('orde
 Route::delete('/orders/delete/{products_id}',[OrderController::class, 'delete'])->name('orders.destroy');
 Route::get('/orders/show/{id}',[OrderController::class, 'show'])->name('orders.show');
 
+Route::get('/generate-pdf', [PDFController::class, 'generatePDF'])->name('clients.PDF');
+
 Route::get('/orders/user', [ClientController::class, 'orderUser'])->name('clients.order');
 //Route::resource('products', ProductController::class);
 //Route::resource('clients', ClientController::class);
@@ -68,4 +71,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         'update' => 'clients.update',
         'destroy' => 'clients.destroy',
     ]);
+    
 });

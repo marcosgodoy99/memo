@@ -84,9 +84,15 @@ overflow: hidden;
 </head>
 <body>
     @if ($message = Session::get('success'))
-              <div class="alert alert-success" role="alert">
+              <div class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
                   {{ $message }}
-                  <a href=" route('clients.order')"><i class="bi bi-search"></i> </a>
+                  
+                      <a href="{{ route('clients.order') }}" class="btn btn-outline-info">
+                          <i class="bi bi-cart-check-fill "> Ir al carrito</i>
+                      </a>
+                      {{-- <button type="submit" class="btn btn-outline-info"> Ir al carrito</button> --}}
+
+                  
               </div>
           @endif
   <div class="product-container" >

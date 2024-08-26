@@ -43,7 +43,7 @@
                                         <form action="{{ route('orders.destroy', $order->products_id) }}" method="post" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this order?');">
+                                            <button type="submit" class="btn btn-danger btn-sm" >
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
@@ -74,8 +74,14 @@
                         </span>
                     </div> 
                 </div>
-                <button class="btn-custom btn-lg ">Comprar orden</button>
-        </div>
+            </div>
+            <form action="{{ route('clients.PDF')}}" method="GET" class="btn-custom btn-lg">
+
+                <div class="text-center">
+                    <button  type="submit" >Comprar Orden</button>
+                </div>
+
+            </form>
     </div>    
 </div>
 </x-app-layout>
