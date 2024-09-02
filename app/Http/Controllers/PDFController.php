@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PDFController extends Controller
 {
@@ -19,11 +20,13 @@ class PDFController extends Controller
 
         $dataConsulta= $this->consulta();
         $totalOrder= $this->consultaTotal();
-        
+        $remito= $this->datosRemito();
+       
         $data = ['orders' => $dataConsulta,
-                   'total'=> $totalOrder ];
+                'total'=> $totalOrder,
+                'remito' => $remito];
         $pdf = PDF::loadView('clients/pdfDocument', $data);
-        return $pdf->download('documento_de_prueba.pdf');
+        return $pdf->stream('documento_de_prueba.pdf');
 
     }
     public function consulta(){
@@ -58,5 +61,32 @@ class PDFController extends Controller
                     WHERE 
                     users_id = :userId',["userId" => $userId]);
         return $totalOrder;
+    }
+
+    public function datosRemito(){
+
+        $userId = Auth::id();
+        $fechaHoy = Carbon::now(); 
+        $clients= DB::select('SELECT *
+                                FROM clients
+                                INNER JOIN users ON clients.users_id = users.id
+                                WHERE 
+                                users_id = :userId',["userId" => $userId]);
+        $remito = [
+            'nro' => '00001-000000232',
+            'fechaEmision' => $fechaHoy,
+            'cuit' => '20-23222333-4',
+            'ingresosBrutos' => '50',
+            'inicioActividades' => '29-10-1999',
+            'condicionIva' => 'responsable inscripto',
+        
+            'cliente' => $clients[0]->username,
+            'direccion' => $clients[0]->address,
+            'cuitCliente' => $clients[0]->cuit,
+            'condicionIvaCliente' => 'consumidor final',
+            'condicionDeVenta' => 'contado',
+            'vtoPago' => '15-02-2019'
+        ];
+        return $remito;
     }
 }
