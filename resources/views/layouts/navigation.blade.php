@@ -19,15 +19,19 @@
                     
                     @can('admin')
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Lista de Productos') }}
+                        {{ __('Lista de Producto') }}
                     </x-nav-link>
                     
                     
                     <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
                         {{ __('Lista de Clientes') }}
                     </x-nav-link>
+
                     @endcan
                     
+                    <x-nav-link :href="route('clients.listaRemitos')" :active="request()->routeIs('clients.listaRemitos')">
+                        {{ __('Lista de Remitos') }}
+                    </x-nav-link>
 
                 </div>
             </div>

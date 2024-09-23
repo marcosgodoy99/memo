@@ -13,14 +13,14 @@
         @endif
 
         <div class="card">
-            <div class="card-header">Client List</div>
+            <div class="card-header">Lista de clientes</div>
             <div class="card-body">
-                <a href="{{ route('clients.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Client</a>
+                <a href="{{ route('clients.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Agregar nuevo cliente</a>
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th scope="col">S#</th>
-                        <th scope="col">Nombre Usuario</th>
+                        <th scope="col">Nombre de Cliente</th>
                         <th scope="col">Direccion</th>
                         <th scope="col">CUIT</th>
                         <th scope="col">Telefono</th>
@@ -44,14 +44,14 @@
 
                                     <a href="{{ route('clients.edit', $client->users_id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>   
 
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this client?');"><i class="bi bi-trash"></i> Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Estas seguro de que quieres eliminar este cliente?');"><i class="bi bi-trash"></i> Eliminar</button>
                                 </form>
                             </td>
                         </tr>
                         @empty
                             <td colspan="7">
                                 <span class="text-danger">
-                                    <strong>No Client Found!</strong>
+                                    <strong>Ningun cliente encontrado!</strong>
                                 </span>
                             </td>
                         @endforelse

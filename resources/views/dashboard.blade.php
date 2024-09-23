@@ -55,6 +55,13 @@ overflow: hidden;
 
   .product-description {
     font-size: 14px;
+  width: 100%;
+  height: 80px;
+  word-wrap: break-word;   /* Permite que las palabras se ajusten */
+  display: -webkit-box;    /* Define un contenedor flexible en la web */
+  -webkit-box-orient: vertical; /* Orienta el contenedor verticalmente */
+  overflow: hidden;    
+  text-overflow: ellipsis; /* Agrega puntos suspensivos al final del texto que no cabe */
   }
 
   .product-button {
@@ -98,7 +105,7 @@ overflow: hidden;
   <div class="product-container" >
     <!-- Primer Producto -->
     @foreach ($products as $product)
-    <div class="product-card">
+    <div class="product-card" id="product-{{$product->id}}">
       <img class="product-image" src="{{$product->links }}"  alt="{{ $product->name }}">
       <div class="product-details">
         <div class="product-name">{{ $product->name }}</div>
@@ -106,9 +113,10 @@ overflow: hidden;
         <div class="product-description">{{ $product->description }}</div>
         <form action="{{ route('orders.order') }}" method="post"> 
          @csrf
-          <input type="hidden" name="products_id" value="{{ $product->id }}">
+          <input type="hidden" name="products_id" value="{{ $product->id }}" id="mantener_posicion">
           <input type="hidden" name="users_id" value="{{ $users->id }}">
           <input type="hidden" name="name" value="{{$product->name}}">
+          
           <input type="number" class="product-quantity" name="quantity" min="1" value="1">
           <button class="product-button" type="submit">Comprar</button>
         </form>

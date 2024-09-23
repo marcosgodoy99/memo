@@ -116,20 +116,18 @@
             </thead>
             <tbody>
                 @forelse ($orders as $order)
-                <tr>
-                    <td>{{ $order->name }}</td>
-                    <td>{{ $order->quantity }}</td>
-                    <td>${{ number_format($order->price, 2, ',', '.') }}</td>
-                    <td>${{ number_format($order->precio_orden, 2, ',', '.') }}</td>
-                    
-                </tr>
-                   
+                    <tr>
+                        <td>{{ $order->name }}</td>                         
+                        <td>{{ $order->quantity }}</td>
+                        <td class="text-primary">${{ number_format($order->price, 2, ',', '.') }}</td>
+                        <td class="text-primary">${{ number_format($order->precio_orden, 2, ',', '.') }}</td>
+                    </tr>
                 @empty
-                        <tr>
-                            <td colspan="4" class="empty-message">
-                                <strong>La orden está vacía</strong>
-                            </td>
-                        </tr>
+                    <td colspan="6">
+                        <span class="text-danger">
+                            <strong>No ha hecho ninguna orden !!</strong>
+                        </span>
+                    </td>
                 @endforelse
             </tbody>
         </table>

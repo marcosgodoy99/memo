@@ -1,0 +1,63 @@
+@extends('clients.layouts')
+
+@section('content')
+<x-app-layout>
+
+
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
+    
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ $message }}
+                </div>
+            @endif
+    
+            <div class="card">
+                <div class="card-header">Lista de Remitos</div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">Numero Remito</th>
+                            <th scope="col">Nombre Cliente</th>
+                            <th scope="col">Fecha Remito</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">CUIT</th>
+                            <th scope="col">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($remitos as $remito)
+                            <tr>
+                                <td>{{ $remito->numberRemito }}</td>
+                                <td>{{ $remito->nameClient }}</td>
+                                <td>{{ date('d/m/Y/ h:m', strtotime($remito->created_at))}}</td>
+                                <td>{{ $remito->address }}</td>
+                                <td>{{ $remito->cuit }}</td>
+                                <td>
+
+                                    <a href="{{ route('clients.RemitosPDF', $remito->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>    
+                                 
+                                </td>
+                            </tr>
+                            @empty
+                                <td colspan="7">
+                                    <span class="text-danger">
+                                        <strong>Ningun Remito encontrado!</strong>
+                                    </span>
+                                </td>
+                            @endforelse
+                        </tbody>
+                      </table>
+    
+                      {{ $remitos->links() }}
+    
+                </div>
+            </div>
+        </div>    
+    </div>
+
+</x-app-layout>    
+@endsection

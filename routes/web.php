@@ -4,11 +4,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RemitoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\PDFController;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +64,10 @@ Route::get('/orders/user', [ClientController::class, 'orderUser'])->name('client
 Route::view('/products/home', 'products.home')->name('products.home');
 Route::middleware(['auth', 'role:admin'])->group(function () {
     
-    Route::resource('/products', ProductController::class); 
+    Route::middleware(['auditoriaProductos'])->group(function (){
+        Route::resource('/products', ProductController::class); 
+    });
+
     Route::resource('/clients', ClientController::class)->names([
         'index' => 'clients.index',
         'create' => 'clients.create',
@@ -71,5 +77,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         'update' => 'clients.update',
         'destroy' => 'clients.destroy',
     ]);
-    
+
 });
+Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('clients.listaRemitos');
+Route::get('/generate-pdf/{id}', [RemitoController::class, 'generatePDF'])->name('clients.RemitosPDF');
+
+
+    

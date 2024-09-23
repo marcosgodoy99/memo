@@ -39,7 +39,8 @@ public function order(Request $request){
                 ]);
             }
         return redirect()->route('dashboard')
-                ->with('success','Se agrego un producto ('.$request->name.') a la orden');
+                ->with('success','Se agrego un producto ('.$request->name.') a la orden')
+                ->withFragment('product-' . $request->products_id);
     }
     public function orderCart(){
         

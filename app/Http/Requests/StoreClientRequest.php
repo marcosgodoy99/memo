@@ -25,8 +25,8 @@ class StoreClientRequest extends FormRequest
             'username' => 'required|string|unique:clients,username',
             'address' => 'nullable|string',
             'cuit' => 'nullable|integer|digits_between:8,11',
-            'phone' => 'nullable|string',
-            'users_id'=> 'required|integer',    
+            'phone' => 'nullable|string|digits_between:10,13',
+            'users_id'=> 'required|integer'
         ];
     }
 }

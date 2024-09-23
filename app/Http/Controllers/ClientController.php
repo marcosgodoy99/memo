@@ -98,10 +98,10 @@ class ClientController extends Controller
     public function update(Request $request, $id)
 {
     $request->validate([
-        'username' => 'required|string',
+        'username' => 'required|string|max:25',
         'address' => 'required|string|min:3|max:100',
         'cuit' => 'required|integer|digits_between:8,11',
-        'phone' => 'required'
+        'phone' => 'required|integer|digits_between:10,13'
     ]);
 
     

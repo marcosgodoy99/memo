@@ -19,7 +19,7 @@
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" maxlength="20" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
@@ -48,11 +48,8 @@
         </div>
 
         <div>
-        <x-input-label :value="__('Rol')" />
-            <select name="rols" id="rols" style="border-radius 10">
-                <option value="admin"> Admin </option>
-                <option value="client"> Cliente </option>
-            </select>
+        <x-input-label/>
+
             <x-input-error class="mt-2" :messages="$errors->get('')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())

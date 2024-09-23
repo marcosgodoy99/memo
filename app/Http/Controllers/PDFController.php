@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\lineasRemito;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Remito;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,7 @@ class PDFController extends Controller
      
     public function generatePDF()
     {
-
+        
         $dataConsulta= $this->consulta();
         $totalOrder= $this->consultaTotal();
         $remito= $this->datosRemito();
@@ -26,30 +28,31 @@ class PDFController extends Controller
                 'total'=> $totalOrder,
                 'remito' => $remito];
         $pdf = PDF::loadView('clients/pdfDocument', $data);
+        $this->save();
         return $pdf->stream('documento_de_prueba.pdf');
-
     }
     public function consulta(){
 
         $userId = Auth::id();
-        $orders=DB::select('SELECT 
-                            orders.quantity * products.price AS precio_orden,
-                            orders.id,
-                            orders.products_id,
-                            orders.quantity,
-                            products.name,
-                            products.links,
-                            products.price,
-                            products.code,
-                            products.description,
-                            products.stock
-                        FROM orders
-                        inner join products on products.id = orders.products_id 
-                        inner join clients on :userId = orders.users_id
-                        
-                        ORDER BY orders.products_id',['userId'=>$userId]);
+        $orders = DB::select('
+                SELECT DISTINCT
+                    orders.quantity * products.price AS precio_orden,
+                    orders.id,
+                    orders.products_id,
+                    orders.quantity,
+                    products.name,
+                    products.links,
+                    products.price,
+                    products.code,
+                    products.description,
+                    products.stock
+                FROM orders
+                INNER JOIN products ON products.id = orders.products_id 
+                WHERE orders.users_id = :userId
+                ORDER BY orders.products_id
+            ', ['userId' => $userId]);
 
-        return $orders;
+    return $orders;
     }
     public function consultaTotal(){
 
@@ -88,5 +91,52 @@ class PDFController extends Controller
             'vtoPago' => '15-02-2019'
         ];
         return $remito;
+    }
+
+    public function save() {
+        $dataConsulta = $this->consulta();
+        $userId = Auth::id();
+    
+        // Obtener datos del cliente
+        $remito = DB::select('
+            SELECT *
+            FROM clients
+            INNER JOIN users ON clients.users_id = users.id
+            WHERE users_id = :userId
+        ', ['userId' => $userId]);
+    
+        // Crear remito
+        $requestClient = [
+            'numberRemito' => '2',
+            'nameClient' => $remito[0]->username,
+            'address' => $remito[0]->address,
+            'cuit' => $remito[0]->cuit,
+            'users_id' => $remito[0]->users_id
+        ];
+    
+        Remito::create($requestClient);
+    
+        // Obtener el ID del remito recién creado
+        $idRemito = DB::table('remitos')
+            ->where('users_id', $userId)
+            ->max('id');
+    
+        // Crear las líneas del remito sin duplicar
+        foreach ($dataConsulta as $order) {
+            $request[] = [
+                'quantity' => $order->quantity,
+                'product' => $order->name,
+                'idProduct' => $order->products_id,
+                'remito_id' => $idRemito,
+                'price' => $order->price,
+                'subtotal' => $order->precio_orden,
+            ];
+        }
+    
+        // Inserta las líneas del remito
+        lineasRemito::insert($request);
+    
+        // Eliminar órdenes del usuario
+        DB::delete('DELETE FROM orders WHERE users_id = :userId', ['userId' => $userId]);
     }
 }

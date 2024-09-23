@@ -14,6 +14,10 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Facades\Mail;    
+
+
 
 class RegisteredUserController extends Controller
 {
@@ -38,11 +42,28 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        
+        Mail::to($request->email)->send(new RegisterMail($request->name));
+        
+        
+        // $mgClient = new RegisterMail('YOUR_API_KEY');
+        // $domain = "sandbox6cf5c48b59874af6a48f8cba33350e5b.mailgun.org";
+        
+        // $result = $mgClient->sendMessage($domain, array(
+        //     'from'	=> 'Excited User <mailgun@sandbox6cf5c48b59874af6a48f8cba33350e5b.mailgun.org>',
+        //     'to'	=> $request->email,
+        //     'subject' => 'Hello wordl',
+        //     'text'	=> 'Testing some Mailgun awesomeness!'
+        // ));
+
+
         //$role = Role::findByName('client');
         //$permission = Permission::findByName('buy item');
 

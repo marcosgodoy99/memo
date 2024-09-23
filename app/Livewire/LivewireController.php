@@ -50,11 +50,12 @@ class LivewireController extends Component
                     ->where('products_id', $this->idProducto)
                     ->decrement('quantity');
                 $this->cantidadProducto--;
-            } else {
+            } if($cantidadActual <= 0) {
                 DB::table('orders')
-                    ->where('products_id', $this->idProducto)
-                    ->where('users_id', $this->userId)
-                    ->limit(1)->delete();  
+                ->where('products_id', $this->idProducto)
+                ->where('users_id', $this->userId)
+                ->limit(1)->delete();
+                return redirect()->route('clients.order');  
             }
         }
 

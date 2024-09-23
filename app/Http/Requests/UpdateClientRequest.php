@@ -24,8 +24,8 @@ class UpdateClientRequest extends FormRequest
         return [
             'username' => 'required|string|unique:clients,username,'.$this->client->users_id,
             'address' => 'nullable|string',
-            'cuit' => 'nullable|string',
-            'phone' => 'nullable|string'
+            'cuit' => 'nullable|integer|',
+            'phone' => 'nullable|string|digits_between:10,13'
         ];
     }
 }

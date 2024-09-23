@@ -2,6 +2,11 @@
 
 @section('content')
 
+<style>
+     .product-image {
+        width: 200px;
+     }
+</style>
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
 
@@ -50,7 +55,12 @@
                             {{ $product->description }}
                         </div>
                     </div>
-        
+                    
+                    <div class="row">
+                        <label for="links" class="col-md-4 col-form-label text-md-end text-start"><strong>Foto del articulo:</strong></label>
+                        <img class="product-image" src="{{$product->links }}"  alt="{{ $product->name }}">
+                    </div>
+
             </div>
         </div>
     </div>    
