@@ -28,8 +28,7 @@ class ClientController extends Controller
     {
         
         return view('clients.index', [
-            'clients' => Client::latest()->paginate(10)
-        ]);
+            'clients' => Client::orderBy('username', 'asc')->paginate(10)]);
     }
 
     /**
@@ -166,6 +165,30 @@ class ClientController extends Controller
                 'totalOrder' => $totalOrden
         ]);
         
+    }
+    public function search(Request $request){
+
+
+        $clientes = DB::select('SELECT *   
+                        FROM clients
+                        WHERE clients.username LIKE :nombreCliente
+                        order by username ASC', 
+                        ["nombreCliente" => '%' . $request->nombreCliente . '%']);
+                        
+        if ($clientes != null) {
+
+            
+            return view('clients.index', [
+                'clients' => $clientes
+            ]);
+
+        }
+
+         if ($clientes == null) {
+            return view('clients.index', [
+                'clients' => Client::orderBy('username', 'asc')->paginate(10)
+            ]);
+        }
     }
 }
 

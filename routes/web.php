@@ -67,7 +67,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::middleware(['auditoriaProductos'])->group(function (){
         Route::resource('/products', ProductController::class); 
     });
-
+    Route::get('/clients/buscar',[ClientController::class, 'search'])->name('clients.buscar');
     Route::resource('/clients', ClientController::class)->names([
         'index' => 'clients.index',
         'create' => 'clients.create',

@@ -33,7 +33,7 @@
                             <tr>
                                 <td>{{ $remito->numberRemito }}</td>
                                 <td>{{ $remito->nameClient }}</td>
-                                <td>{{ date('d/m/Y/ h:m', strtotime($remito->created_at))}}</td>
+                                <td>{{ date('d/m/Y H:i', strtotime($remito->created_at))}}</td>
                                 <td>{{ $remito->address }}</td>
                                 <td>{{ $remito->cuit }}</td>
                                 <td>
