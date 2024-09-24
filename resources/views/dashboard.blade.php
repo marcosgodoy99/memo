@@ -111,13 +111,12 @@ overflow: hidden;
         <div class="product-name">{{ $product->name }}</div>
         <div class="product-price">${{ $product->price }}</div>
         <div class="product-description">{{ $product->description }}</div>
-        <form action="{{ route('orders.order') }}" method="post"> 
+        <form action="{{ route('orders.buy') }}" method="get"> 
          @csrf
           <input type="hidden" name="products_id" value="{{ $product->id }}" id="mantener_posicion">
           <input type="hidden" name="users_id" value="{{ $users->id }}">
           <input type="hidden" name="name" value="{{$product->name}}">
           
-          <input type="number" class="product-quantity" name="quantity" min="1" value="1">
           <button class="product-button" type="submit">Comprar</button>
         </form>
     </div>

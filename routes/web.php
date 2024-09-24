@@ -54,6 +54,7 @@ Route::post('/orders', [OrderController::class, 'order'])->name('orders.order');
 Route::get('/orders/product', [OrderController::class, 'orderCart'])->name('orders.orderCart');
 Route::delete('/orders/delete/{products_id}',[OrderController::class, 'delete'])->name('orders.destroy');
 Route::get('/orders/show/{id}',[OrderController::class, 'show'])->name('orders.show');
+Route::get('/orders/buy',[OrderController::class, 'buy'])->name('orders.buy');
 
 Route::get('/generate-pdf', [PDFController::class, 'generatePDF'])->name('clients.PDF');
 

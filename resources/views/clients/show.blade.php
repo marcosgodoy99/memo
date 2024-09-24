@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    Informacion de los soretes de los clientes
+                    Informacion de los clientes
                 </div>
                 <div class="float-end">
                     <a href="{{ route('clients.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="row">
-                        <label for="cuit" class="col-md-4 col-form-label text-md-end text-start"><strong>Name:</strong></label>
+                        <label for="cuit" class="col-md-4 col-form-label text-md-end text-start"><strong>Cuit:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
                             {{ $client[0]->cuit }}
                         </div>

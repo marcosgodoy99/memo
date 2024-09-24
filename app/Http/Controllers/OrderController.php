@@ -80,5 +80,21 @@ public function order(Request $request){
                 'orders' => $orders, 
         ]);
     }
+    public function buy(Request $request) : View{
+
+
+        $orderBuy=DB::select('SELECT *
+                        FROM products
+                        where products.id = :idProducts '
+                        ,['idProducts'=>$request->products_id ]);
+
+        
+        $idUser=$request->users_id;
+
+        return view('clients.buyOrder', [
+            'product' => $orderBuy,
+            'idUser'=>$idUser 
+        ]);
+    }
 
 }
