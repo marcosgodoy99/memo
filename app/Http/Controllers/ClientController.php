@@ -36,7 +36,10 @@ class ClientController extends Controller
      */
     public function create() : View
     {
-        return view('clients.create');
+        $user= DB::select('SELECT *
+                            FROM users');
+        return view('clients.create',[
+            'users'=> $user]);
     }
 
     /**
@@ -157,12 +160,16 @@ class ClientController extends Controller
                                 INNER JOIN products ON products.id = orders.products_id
                                 WHERE 
                                     users_id = :userId',["userId" => $userId]); 
+         $userId=Auth::id();
+         $clients= DB::select('SELECT *
+                             From clients
+                             where clients.users_id = :id',[
+                                 'id'=>$userId ]);
         
-    
-
         return view('clients.order', [
                 'orders' => $orders,
-                'totalOrder' => $totalOrden
+                'totalOrder' => $totalOrden,
+                'clients'=>$clients
         ]);
         
     }
@@ -190,5 +197,6 @@ class ClientController extends Controller
             ]);
         }
     }
+    
 }
 

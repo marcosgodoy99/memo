@@ -58,12 +58,19 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="users_id" class="col-md-4 col-form-label text-md-end text-start">Id Cliente</label>
+                        <label for="users_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione Usuario</label>
                         <div class="col-md-6">
-                          <input type="number" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" value="{{ old('users_id') }}">
-                            @if ($errors->has('users_id'))
-                                <span class="text-danger">{{ $errors->first('users_id') }}</span>
-                            @endif
+                          <select class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id">
+                              <option value="">Seleccione un usuario</option>
+                              @foreach ($users as $user)
+                                  <option value="{{ $user->id }}" {{ old('users_id') == $user->id ? 'selected' : '' }}>
+                                      {{ $user->name }} ({{ $user->email }})
+                                  </option>
+                              @endforeach
+                          </select>
+                          @if ($errors->has('users_id'))
+                              <span class="text-danger">{{ $errors->first('users_id') }}</span>
+                          @endif
                         </div>
                     </div>
                     

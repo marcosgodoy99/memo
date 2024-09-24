@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
         ]);
 
         
-        Mail::to($request->email)->send(new RegisterMail($request->name));
+        // Mail::to($request->email)->send(new RegisterMail($request->name));
         
         
         // $mgClient = new RegisterMail('YOUR_API_KEY');

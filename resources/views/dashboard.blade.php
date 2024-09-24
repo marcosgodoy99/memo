@@ -1,5 +1,3 @@
-
-
 @extends('products.layouts')
 
 @section('content')
@@ -22,16 +20,12 @@
 
   .product-card {
     width: 200px;
-    
- 
-border: 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 20px; /* Margen a la derecha */
     margin-bottom: 20px; /* Margen inferior */
-    
-    over
-overflow: hidden;
-}
+    overflow: hidden;
+  }
 
   .product-image {
     width: 100%;
@@ -55,13 +49,13 @@ overflow: hidden;
 
   .product-description {
     font-size: 14px;
-  width: 100%;
-  height: 80px;
-  word-wrap: break-word;   /* Permite que las palabras se ajusten */
-  display: -webkit-box;    /* Define un contenedor flexible en la web */
-  -webkit-box-orient: vertical; /* Orienta el contenedor verticalmente */
-  overflow: hidden;    
-  text-overflow: ellipsis; /* Agrega puntos suspensivos al final del texto que no cabe */
+    width: 100%;
+    height: 80px;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;    
+    text-overflow: ellipsis;
   }
 
   .product-button {
@@ -71,8 +65,6 @@ overflow: hidden;
     color: #fff;
     border: none;
     cursor: pointer;
-
-    
   }
 
   .product-quantity {
@@ -85,28 +77,24 @@ overflow: hidden;
     margin-bottom: 10px;
     background-color: #f9f9f9; 
   }
- 
-
 </style>
 </head>
 <body>
-    @if ($message = Session::get('success'))
-              <div class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
-                  {{ $message }}
-                  
-                      <a href="{{ route('clients.order') }}" class="btn btn-outline-info">
-                          <i class="bi bi-cart-check-fill "> Ir al carrito</i>
-                      </a>
-                      {{-- <button type="submit" class="btn btn-outline-info"> Ir al carrito</button> --}}
 
-                  
-              </div>
-          @endif
-  <div class="product-container" >
-    <!-- Primer Producto -->
+  @if ($message = Session::get('success'))
+      <div class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
+          {{ $message }}
+          <a href="{{ route('clients.order') }}" class="btn btn-outline-info">
+              <i class="bi bi-cart-check-fill"> Ir al carrito</i>
+          </a>
+      </div>
+  @endif
+
+<div class="product-container">
+    <!-- Productos -->
     @foreach ($products as $product)
     <div class="product-card" id="product-{{$product->id}}">
-      <img class="product-image" src="{{$product->links }}"  alt="{{ $product->name }}">
+      <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
       <div class="product-details">
         <div class="product-name">{{ $product->name }}</div>
         <div class="product-price">${{ $product->price }}</div>
@@ -119,11 +107,11 @@ overflow: hidden;
           
           <button class="product-button" type="submit">Comprar</button>
         </form>
-    </div>
+      </div>
     </div>
     @endforeach
-    <!-- Más productos aquí -->
-  </div>
+</div>
+
 </body>
 </html>
 </x-app-layout>

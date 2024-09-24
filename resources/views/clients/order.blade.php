@@ -2,6 +2,15 @@
 @section('content')
 
 <x-app-layout>
+    <style>
+         .select-container {
+    margin: 20px;
+  }
+
+  .select-container select {
+    width: 100%;
+  }
+    </style>
 <div class="row justify-content-center mt-3">
     <div class="col-md-12">
 
@@ -10,6 +19,22 @@
                 {{ $message }}
             </div>
         @endif
+        <div class="select-container mb-3 row">
+            <label for="users_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione Usuario</label>
+            <div class="col-md-6">
+              <select class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id">
+                  <option value="">Seleccione un cliente</option>
+                  @foreach ($clients as $client)
+                      <option value="{{ $client->users_id }}" {{ old('users_id') == $client->users_id ? 'selected' : '' }}>
+                          {{ $client->username }} ({{ $client->cuit }})
+                      </option>
+                  @endforeach
+              </select>
+              @if ($errors->has('users_id'))
+                  <span class="text-danger">{{ $errors->first('users_id') }}</span>
+              @endif
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-header">Order List</div>
