@@ -43,7 +43,7 @@
   }
 
   .product-price {
-    color: #007bff;
+    color: #28a745;
     font-size: 18px;
   }
 

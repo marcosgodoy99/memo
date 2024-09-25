@@ -19,19 +19,24 @@
                 {{ $message }}
             </div>
         @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @endif
         <div class="select-container mb-3 row">
             <label for="users_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione Usuario</label>
             <div class="col-md-6">
               <select class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id">
                   <option value="">Seleccione un cliente</option>
                   @foreach ($clients as $client)
-                      <option value="{{ $client->users_id }}" {{ old('users_id') == $client->users_id ? 'selected' : '' }}>
+                      <option value="{{ $client->id }}" {{ old('id') == $client->id ? 'selected' : '' }}>
                           {{ $client->username }} ({{ $client->cuit }})
                       </option>
                   @endforeach
               </select>
-              @if ($errors->has('users_id'))
-                  <span class="text-danger">{{ $errors->first('users_id') }}</span>
+              @if ($errors->has('id'))
+                  <span class="text-danger">{{ $errors->first('id') }}</span>
               @endif
             </div>
         </div>
@@ -101,7 +106,7 @@
                 </div>
             </div>
             <form action="{{ route('clients.PDF')}}" method="GET" class="btn-custom btn-lg">
-
+                <input type="hidden" name="users_id" id="hidden_users_id">
                 <div class="text-center">
                     <button  type="submit" >Comprar Orden</button>
                 </div>
@@ -109,5 +114,11 @@
             </form>
     </div>    
 </div>
+<script>
+    // Cuando se cambie el select de cliente, actualiza el campo hidden
+    document.getElementById('users_id').addEventListener('change', function() {
+        document.getElementById('hidden_users_id').value = this.value;
+    });
+</script>
 </x-app-layout>
 @endsection

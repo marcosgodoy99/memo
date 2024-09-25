@@ -38,7 +38,7 @@
                                 <td>{{ $remito->cuit }}</td>
                                 <td>
 
-                                    <a href="{{ route('clients.RemitosPDF', $remito->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>    
+                                    <a href="{{ route('clients.RemitosPDF', $remito->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i></a>    
                                  
                                 </td>
                             </tr>

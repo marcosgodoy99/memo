@@ -131,7 +131,7 @@
                 <input type="hidden" name="users_id" value="{{ $idUser }}">
                 <input type="hidden" name="name" value="{{$product[0]->name}}">
                 
-                <input type="number" class="product-quantity" name="quantity" min="1" value="1"> 
+                <input type="number" class="product-quantity" name="quantity" min="1" max="{{$product[0]->stock}}" value="1"> 
                 <div class="form-group">
                     <button type="submit" class="btn-buy">Comprar Producto</button>
                 </div>

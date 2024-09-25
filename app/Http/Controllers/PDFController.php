@@ -17,12 +17,15 @@ use Carbon\Carbon;
 class PDFController extends Controller
 {
      
-    public function generatePDF()
+    public function generatePDF(Request $request)
     {
-        
+        if ($request->users_id == null) {
+            return redirect()->route('clients.order')
+            ->with('error', 'Seleccione un cliente por favor');
+        }
         $dataConsulta= $this->consulta();
         $totalOrder= $this->consultaTotal();
-        $remito= $this->datosRemito();
+            $remito= $this->datosRemito($request->users_id);
        
         $data = ['orders' => $dataConsulta,
                 'total'=> $totalOrder,
@@ -65,16 +68,15 @@ class PDFController extends Controller
                     users_id = :userId',["userId" => $userId]);
         return $totalOrder;
     }
-
-    public function datosRemito(){
-
-        $userId = Auth::id();
-        $fechaHoy = Carbon::now(); 
-        $clients= DB::select('SELECT *
+    
+    public function datosRemito($id){
+            
+            // $userId = Auth::id();
+            $fechaHoy = Carbon::now(); 
+            $clients= DB::select('SELECT *
                                 FROM clients
-                                INNER JOIN users ON clients.users_id = users.id
                                 WHERE 
-                                users_id = :userId',["userId" => $userId]);
+                                clients.id = :clientId',["clientId" => $id]);
         $remito = [
             'nro' => '00001-000000232',
             'fechaEmision' => $fechaHoy,
@@ -82,7 +84,7 @@ class PDFController extends Controller
             'ingresosBrutos' => '50',
             'inicioActividades' => '29-10-1999',
             'condicionIva' => 'responsable inscripto',
-        
+            
             'cliente' => $clients[0]->username,
             'direccion' => $clients[0]->address,
             'cuitCliente' => $clients[0]->cuit,
