@@ -39,7 +39,8 @@
                                 <td>
 
                                     <a href="{{ route('clients.RemitosPDF', $remito->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i></a>    
-                                 
+
+                                    <a href="{{ route('clients.RemitosPDFDescarga', $remito->id) }}" class="btn btn-success btn-sm"><i class="bi bi-download"></i></a>
                                 </td>
                             </tr>
                             @empty
