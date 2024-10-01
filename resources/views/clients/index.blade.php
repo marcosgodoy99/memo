@@ -16,7 +16,7 @@
             <div class="card-header">Lista de clientes</div>
             <div class="card-body">
                 <a href="{{ route('clients.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Agregar nuevo cliente</a>
-                <form action="{{route('clients.buscar') }}" method="get">
+                <form action="{{route('clients.buscarClientes') }}" method="get">
                     @csrf
                     <input type="search" name="nombreCliente" id="nombreCliente" >
 

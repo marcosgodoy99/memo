@@ -11,20 +11,34 @@
 <title>Lista de Productos</title>
 <style>
   /* Estilos CSS */
+  .main-container {
+    display: flex;
+  }
+
+  .categories-container {
+    width: 20%;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
   .product-container {
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 20px;
+    justify-content: left; 
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
   }
 
   .product-card {
-    width: 200px;
+    flex: 1 1 200px;
+    max-width: 200px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 20px; /* Margen a la derecha */
-    margin-bottom: 20px; /* Margen inferior */
     overflow: hidden;
+    box-sizing: border-box;
   }
 
   .product-image {
@@ -67,15 +81,40 @@
     cursor: pointer;
   }
 
-  .product-quantity {
-    width: 50px; 
-    padding: 5px;
+  .search-container {
+    margin-top: 20px; /* Ajusta la distancia superior */
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre el campo de búsqueda y el mensaje */
+  }
+
+  .search-input {
+    padding: 10px;
+    border-radius: 20px; /* Bordes redondeados */
     border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 10px;
-    background-color: #f9f9f9; 
+    width: 250px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Añade un sombreado suave */
+    margin-left: 5px;
+  }
+
+  .search-button {
+    padding: 10px;
+    border-radius: 20px; /* Bordes redondeados para el botón también */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .search-result-message {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+  }
+
+  .search-button i {
+    margin-right: 5px;
   }
 </style>
 </head>
@@ -90,27 +129,53 @@
       </div>
   @endif
 
-<div class="product-container">
-    <!-- Productos -->
-    @foreach ($products as $product)
-    <div class="product-card" id="product-{{$product->id}}">
-      <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
-      <div class="product-details">
-        <div class="product-name">{{ $product->name }}</div>
-        <div class="product-price">${{ $product->price }}</div>
-        <div class="product-description">{{ $product->description }}</div>
-        <form action="{{ route('orders.buy') }}" method="get"> 
-         @csrf
-          <input type="hidden" name="products_id" value="{{ $product->id }}" id="mantener_posicion">
-          <input type="hidden" name="users_id" value="{{ $users->id }}">
-          <input type="hidden" name="name" value="{{$product->name}}">
-          
-          <button class="product-button" type="submit">Comprar</button>
-        </form>
-      </div>
+  <div class="search-container">
+    <form action="{{route('clients.buscarProductos') }}" method="get" class="search-form">
+      <input type="search" name="nombreProducto" id="nombreProducto" class="search-input" placeholder="Buscar producto...">
+      <button type="submit" class="search-button"><i class="bi bi-search"></i></button>
+    </form>
+
+    @if (!empty($mensaje))
+    <div class="search-result-message">
+      El resultado de la búsqueda es: "{{ $mensaje }}"
     </div>
-    @endforeach
-</div>
+    <a href="{{route('dashboard')}}" class=""><i class="bi bi-x-circle-fill"></i></a>
+
+    @endif
+  </div>
+
+  <div class="main-container">
+    <!-- Listado de categorías -->
+    <div class="categories-container">
+      <h3>Categorías</h3>
+      <ul>
+        {{-- @foreach ($categories as $category)
+          <li><a href="{{ route('clients.filtrarPorCategoria', ['categoria' => $category->id]) }}">{{ $category->name }}</a></li>
+        @endforeach --}}
+      </ul>
+    </div>
+
+    <!-- Productos -->
+    <div class="product-container">
+      @foreach ($products as $product)
+      <div class="product-card" id="product-{{$product->id}}">
+        <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
+        <div class="product-details">
+          <div class="product-name">{{ $product->name }}</div>
+          <div class="product-price">${{ $product->price }}</div>
+          <div class="product-description">{{ $product->description }}</div>
+          <form action="{{ route('orders.buy') }}" method="get"> 
+            @csrf
+            <input type="hidden" name="products_id" value="{{ $product->id }}">
+            <input type="hidden" name="users_id" value="{{ $users->id }}">
+            <input type="hidden" name="name" value="{{$product->name}}">
+            <button class="product-button" type="submit">Comprar</button>
+          </form>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
 
 </body>
 </html>

@@ -197,6 +197,23 @@ class ClientController extends Controller
             ]);
         }
     }
+    public function searchProducts(Request $request){
+
+        $users = Auth::user();
+        $products=DB::select('SELECT *
+                                FROM products
+                                WHERE products.name like :nombreProducto
+                                order by products.name ASC',
+                                ['nombreProducto'=>'%'.$request->nombreProducto.'%']);
+        // dd($request->nombreProducto);
+        $mensaje= $request->nombreProducto;
+
+        return view('dashboard',[
+                'products' => $products,
+                'users' => $users,
+                'mensaje' => $mensaje
+                            ]); 
+    }
     
 }
 

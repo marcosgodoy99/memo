@@ -37,7 +37,7 @@ Route::get('/dashboard', function () {
     $products = Product::latest()->get();
     return view('dashboard',[
             'products' => $products,
-            'users' => $users
+            'users' => $users,
     ]); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -69,7 +69,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::middleware(['auditoriaProductos'])->group(function (){
         Route::resource('/products', ProductController::class); 
     });
-    Route::get('/clients/buscar',[ClientController::class, 'search'])->name('clients.buscar');
+    Route::get('/clients/buscarClientes',[ClientController::class, 'search'])->name('clients.buscarClientes');
+    Route::get('/clients/buscarProductos',[ClientController::class, 'searchProducts'])->name('clients.buscarProductos');
     Route::resource('/clients', ClientController::class)->names([
         'index' => 'clients.index',
         'create' => 'clients.create',
