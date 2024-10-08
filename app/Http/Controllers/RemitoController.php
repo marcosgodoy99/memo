@@ -18,8 +18,9 @@ class RemitoController extends Controller
 {
     public function listaRemito(): View 
     { 
+        $id=Auth::id();
         return view('clients.listaRemitos', [
-            'remitos' => Remito::latest()->paginate(10)
+            'remitos' => Remito::where('users_id', $id)->latest()->paginate(10)
         ]);
     }
     public function generatePDF($id)
