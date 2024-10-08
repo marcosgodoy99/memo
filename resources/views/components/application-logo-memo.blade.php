@@ -1,0 +1,1 @@
+<img src="{{ asset('logo-removebg-preview.png') }}" alt="Logo" style="width: 70px; height: 60px;">
