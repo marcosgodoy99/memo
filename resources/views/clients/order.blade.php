@@ -25,9 +25,9 @@
             </div>
         @endif
         <div class="select-container mb-3 row">
-            <label for="users_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione Usuario</label>
+            <label for="clients_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione Cliente</label>
             <div class="col-md-6">
-              <select class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id">
+              <select class="form-control @error('clients_id') is-invalid @enderror" id="clients_id" name="clients_id">
                   <option value="">Seleccione un cliente</option>
                   @foreach ($clients as $client)
                       <option value="{{ $client->id }}" {{ old('id') == $client->id ? 'selected' : '' }}>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <form action="{{ route('clients.PDF')}}" method="GET" class="btn-custom btn-lg">
-                <input type="hidden" name="users_id" id="hidden_users_id">
+                <input type="hidden" name="clients_id" id="hidden_clients_id">
                 <div class="text-center">
                     <button  type="submit" >Comprar Orden</button>
                 </div>
@@ -116,8 +116,8 @@
 </div>
 <script>
     // Cuando se cambie el select de cliente, actualiza el campo hidden
-    document.getElementById('users_id').addEventListener('change', function() {
-        document.getElementById('hidden_users_id').value = this.value;
+    document.getElementById('clients_id').addEventListener('change', function() {
+        document.getElementById('hidden_clients_id').value = this.value;
     });
 </script>
 </x-app-layout>

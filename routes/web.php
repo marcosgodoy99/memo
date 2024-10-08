@@ -36,8 +36,8 @@ Route::get('/dashboard', function () {
 
     $products = Product::latest()->get();
     return view('dashboard',[
-            'products' => $products,
-            'users' => $users,
+        'products' => $products,
+        'users' => $users,
     ]); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 

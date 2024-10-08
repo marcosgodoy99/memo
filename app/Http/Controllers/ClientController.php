@@ -174,30 +174,35 @@ class ClientController extends Controller
         
     }
     public function search(Request $request){
-
-
+        
+        if ($request->nombreCliente == null) {
+            return redirect()->route('clients.index')
+            ->with('error', 'Ingrese nombre del cliente para buscarlo');
+        }
         $clientes = DB::select('SELECT *   
                         FROM clients
                         WHERE clients.username LIKE :nombreCliente
                         order by username ASC', 
                         ["nombreCliente" => '%' . $request->nombreCliente . '%']);
-                        
+
         if ($clientes != null) {
-
-            
             return view('clients.index', [
-                'clients' => $clientes
+                        'clients' => $clientes
             ]);
-
         }
 
-         if ($clientes == null) {
-            return view('clients.index', [
-                'clients' => Client::orderBy('username', 'asc')->paginate(10)
-            ]);
+
+        if ($clientes == null) {
+            return redirect()->route('clients.index')
+            ->with('error', 'Cliente no encontrado');
         }
     }
     public function searchProducts(Request $request){
+
+        if ($request->nombreProducto == null) {
+            return redirect()->route('dashboard')
+                    ->with('error', 'No se encontro resultados del producto');
+                }
 
         $users = Auth::user();
         $products=DB::select('SELECT *
@@ -205,7 +210,11 @@ class ClientController extends Controller
                                 WHERE products.name like :nombreProducto
                                 order by products.name ASC',
                                 ['nombreProducto'=>'%'.$request->nombreProducto.'%']);
-        // dd($request->nombreProducto);
+       
+        if ($products == null) {
+            return redirect()->route('dashboard')
+                    ->with('error', 'No se encontro resultados del producto');
+                }
         $mensaje= $request->nombreProducto;
 
         return view('dashboard',[

@@ -19,19 +19,24 @@ class PDFController extends Controller
      
     public function generatePDF(Request $request)
     {
-        if ($request->users_id == null) {
+        if ($request->clients_id == null) {
             return redirect()->route('clients.order')
             ->with('error', 'Seleccione un cliente por favor');
         }
-        $dataConsulta= $this->consulta();
-        $totalOrder= $this->consultaTotal();
-            $remito= $this->datosRemito($request->users_id);
+            $dataConsulta= $this->consulta();
+            $totalOrder= $this->consultaTotal();
+            $remito= $this->datosRemito($request->clients_id);
+
+            if ($dataConsulta == null) {
+                return redirect()->route('clients.order')
+                ->with('error', 'No ha seleccionado ningun producto');
+            }
        
         $data = ['orders' => $dataConsulta,
                 'total'=> $totalOrder,
                 'remito' => $remito];
         $pdf = PDF::loadView('clients/pdfDocument', $data);
-        $this->save();
+        $this->save($request->clients_id);
         return $pdf->stream('documento_de_prueba.pdf');
     }
     public function consulta(){
@@ -55,7 +60,7 @@ class PDFController extends Controller
                 ORDER BY orders.products_id
             ', ['userId' => $userId]);
 
-    return $orders;
+        return $orders;
     }
     public function consultaTotal(){
 
@@ -95,17 +100,18 @@ class PDFController extends Controller
         return $remito;
     }
 
-    public function save() {
+    public function save($id) {
         $dataConsulta = $this->consulta();
         $userId = Auth::id();
-    
+        
         // Obtener datos del cliente
         $remito = DB::select('
             SELECT *
             FROM clients
             INNER JOIN users ON clients.users_id = users.id
-            WHERE users_id = :userId
-        ', ['userId' => $userId]);
+            WHERE users_id = :userId and clients.id = :clientId
+        ', ['userId' => $userId,
+            'clientId'=>$id]);
     
         // Crear remito
         $requestClient = [

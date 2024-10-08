@@ -19,17 +19,19 @@ class OrderController extends Controller
 {
     
 public function order(Request $request){
-        
-        $order=DB::Select(' SELECT *
+    
+        if ($request->quantity != 0) {
+            
+            $order=DB::Select(' SELECT *
             FROM orders
             WHERE users_id = :user_id  AND products_id = :products_id ' 
             ,['user_id'=> $request->users_id, 'products_id' => $request->products_id]);
-
+            
             if ($order) {
                 DB::table('orders')
-                  ->where('users_id', $request->users_id)
-                  ->where('products_id', $request->products_id)
-                  ->update(['quantity' => DB::raw('quantity + ' . $request->quantity)]);
+                ->where('users_id', $request->users_id)
+                ->where('products_id', $request->products_id)
+                ->update(['quantity' => DB::raw('quantity + ' . $request->quantity)]);
             } else {
                 
                 Order::create([
@@ -38,9 +40,23 @@ public function order(Request $request){
                     'quantity' => $request->quantity
                 ]);
             }
-        return redirect()->route('dashboard')
-                ->with('success','Se agrego un producto ('.$request->name.') a la orden')
-                ->withFragment('product-' . $request->products_id);
+            return redirect()->route('dashboard')
+            ->with('success','Se agrego un producto ('.$request->name.') a la orden')
+            ->withFragment('product-' . $request->products_id);
+        } else {
+            $orderBuy=DB::select('SELECT *
+                                FROM products
+                                where products.id = :idProducts '
+                                ,['idProducts'=>$request->products_id ]);
+
+            $idUser=$request->users_id;
+            $mensaje="Error, no ingreso una cantidad";
+
+            return view('clients.buyOrder', [
+                'product' => $orderBuy,
+                'idUser'=>$idUser,
+                'mensaje'=>$mensaje ]);
+        }
     }
     public function orderCart(){
         

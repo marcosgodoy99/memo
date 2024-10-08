@@ -11,6 +11,11 @@
                 {{ $message }}
             </div>
         @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @endif
 
         <div class="card">
             <div class="card-header">Lista de clientes</div>

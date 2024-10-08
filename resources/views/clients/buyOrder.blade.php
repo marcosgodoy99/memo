@@ -107,6 +107,11 @@
     }
 </style>
 
+        @if (!empty($mensaje))
+            <div class="alert alert-danger">
+                    {{ $mensaje }}
+            </div>
+        @endif
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
         <div class="product-card">

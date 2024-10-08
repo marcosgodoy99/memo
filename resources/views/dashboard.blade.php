@@ -128,6 +128,11 @@
           </a>
       </div>
   @endif
+  @if ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @endif
 
   <div class="search-container">
     <form action="{{route('clients.buscarProductos') }}" method="get" class="search-form">
