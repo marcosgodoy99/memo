@@ -18,8 +18,10 @@ return new class extends Migration
             $table->integer('stock');
             $table->decimal('price', 8, 2);
             $table->string('description')->nullable();
-            $table->timestamps();
             $table->string('links', 1000)->nullable();
+            $table->unsignedBigInteger('categorias_id');
+            $table->foreign('categorias_id')->references('id')->on('categorias')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
