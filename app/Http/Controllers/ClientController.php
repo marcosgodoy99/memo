@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\User;
@@ -222,6 +223,17 @@ class ClientController extends Controller
                 'users' => $users,
                 'mensaje' => $mensaje
                             ]); 
+    }
+
+    public function solicitud(){
+        
+        
+
+        Mail::raw('Correo de prueba desde Laravel', function ($message) {
+        $message->to('thiagomeseg@gmail.com')
+            ->subject('Correo de Prueba');
+        });
+        
     }
     
 }

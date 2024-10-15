@@ -45,7 +45,8 @@ class DatabaseSeeder extends Seeder
        
         $this->insertModelHasPermissions();
         $this->insertModelHasRoles();
-        $this->insertRoleHasPermissions();
+       $this->insertRoleHasPermissions();
+        $this->insertProducts();
     }
     
 
@@ -67,11 +68,32 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 
+    public function insertProducts() {
+
+        $json = file_get_contents(public_path('products.json')); 
+        $products = json_decode($json, true); 
+        
+        foreach ($products as $productData) {
+           
+            Product::create([
+                'code' => $productData['code'],
+                'name' => $productData['name'],
+                'stock' => $productData['stock'],
+                'price' => $productData['price'],
+                'description' => $productData['description'],
+                'created_at' => now(), // O puedes asignar un valor específico
+                'updated_at' => now(), // O puedes asignar un valor específico
+                'links' => $productData['links'],
+            ]);
+        }
+    }
+    
     public function insertRoleHasPermissions()
     {
-        DB::table('role_has_permissions')->insert([
+        DB::table('role_has_permissions')->insertOrIgnore([
             'permission_id' => 1,
             'role_id' => 1,
         ]);
     }
+    
 }

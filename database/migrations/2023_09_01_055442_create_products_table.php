@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->string('description')->nullable();
             $table->string('links', 1000)->nullable();
-            $table->unsignedBigInteger('categorias_id');
+            $table->unsignedBigInteger('categorias_id')->nullable();
             $table->foreign('categorias_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->timestamps();
         });

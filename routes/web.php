@@ -82,6 +82,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     ]);
 
 });
+
+
+Route::get('/solicitud', function () {
+    return view('clients.solicitudCliente');
+});
+
+Route::get('/solicitudCliente',[ClientController::class, 'solicitud'])->name('clients.solicitud');
 Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('clients.listaRemitos');
 Route::get('/generate-pdf/{id}', [RemitoController::class, 'generatePDF'])->name('clients.RemitosPDF');
 Route::get('/generate-pdfDowload/{id}', [RemitoController::class, 'generatePDFDescarga'])->name('clients.RemitosPDFDescarga');
