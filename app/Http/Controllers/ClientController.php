@@ -56,17 +56,16 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $client) : View
+    public function show(Client $client) : View
     {
     
         $idClient=$client->id;
 
         $clients=DB::select('
         SELECT *
-        FROM users
-        inner join clients on clients.users_id = users.id 
-        WHERE 
-        users_id = :userId',['userId'=>$idClient]);
+        FROM clients 
+        WHERE id = :ClientId',
+        ['ClientId'=>$idClient]);
         
         return view('clients.show', [
             'client' => $clients
@@ -76,7 +75,7 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $client) : View
+    public function edit(Client $client) : View
 {
     // Obtén el ID del cliente
     $idClient = $client->id;
@@ -84,9 +83,8 @@ class ClientController extends Controller
     // Realiza una consulta para obtener los detalles del cliente
     $clients = DB::select('
         SELECT *
-        FROM users
-        INNER JOIN clients ON clients.users_id = users.id 
-        WHERE users_id = :userId', ['userId' => $idClient]);
+        FROM Clients 
+        WHERE id = :clientId', ['clientId' => $idClient]);
 
     // Retornar la vista 'clients.edit' con los datos del cliente
     return view('clients.edit', [
@@ -109,7 +107,7 @@ class ClientController extends Controller
 
     
     DB::table('clients')
-        ->where('users_id', $id)
+        ->where('id', $id)
         ->update([
             'username' => $request->username,
             'address' => $request->address,
@@ -125,16 +123,18 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $client) 
+    public function destroy(Client $client) 
     {
         $idClient=$client->id;
         
-        $deleted = DB::delete('
-            DELETE clients
-            FROM clients
-            INNER JOIN users ON clients.users_id = users.id
-            WHERE users_id = :userId
-        ', ['userId' => $idClient]);
+        $client->delete();
+
+        // $deleted = DB::delete('
+        //     DELETE clients
+        //     FROM clients
+        //     INNER JOIN users ON clients.users_id = users.id
+        //     WHERE users_id = :userId
+        // ', ['userId' => $idClient]);
         
         return redirect()->route('clients.index')
                 ->withSuccess('Client is deleted successfully.');
@@ -230,7 +230,7 @@ class ClientController extends Controller
         
 
         Mail::raw('Correo de prueba desde Laravel', function ($message) {
-        $message->to('thiagomeseg@gmail.com')
+        $message->to('agustinhloa@gmail.com')
             ->subject('Correo de Prueba');
         });
         

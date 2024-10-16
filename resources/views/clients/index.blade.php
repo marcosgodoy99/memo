@@ -47,13 +47,13 @@
                             <td>{{ $client->cuit }}</td>
                             <td>{{ $client->phone }}</td>
                             <td>
-                                <form action="{{ route('clients.destroy', $client->users_id) }}" method="post">
+                                <form action="{{ route('clients.destroy', $client->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
 
-                                    <a href="{{ route('clients.show', $client->users_id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
+                                    <a href="{{ route('clients.show', $client->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
 
-                                    <a href="{{ route('clients.edit', $client->users_id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>   
+                                    <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>   
 
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Estas seguro de que quieres eliminar este cliente?');"><i class="bi bi-trash"></i> Eliminar</button>
                                 </form>

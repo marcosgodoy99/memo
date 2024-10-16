@@ -37,12 +37,12 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <label for="email" class="col-md-4 col-form-label text-md-end text-start"><strong>Email:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
                             {{ $client[0]->email }}
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="row">
                         <label for="phone" class="col-md-4 col-form-label text-md-end text-start"><strong>Phone:</strong></label>
