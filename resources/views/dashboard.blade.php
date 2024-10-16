@@ -167,7 +167,7 @@
         <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
         <div class="product-details">
           <div class="product-name">{{ $product->name }}</div>
-          <div class="product-price">${{ $product->price }}</div>
+          <div class="product-price">${{ number_format($product->price, 2, ',', '.') }}</div>
           <div class="product-description">{{ $product->description }}</div>
           <form action="{{ route('orders.buy') }}" method="get"> 
             @csrf
