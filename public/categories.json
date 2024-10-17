@@ -1,0 +1,18 @@
+[
+    {
+        "id":1, 
+        "name":"Lacteos"
+    },
+    {
+        "id": 2,
+        "name": "Bebidas"
+    },
+    {
+        "id": 3,
+        "name": "Aceites"
+    },
+    {
+        "id": 4,
+        "name": "Harinas"
+    }
+]

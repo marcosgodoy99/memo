@@ -92,9 +92,17 @@ Route::get('/solicitud', function () {
     return view('clients.solicitudCliente');
 });
 
+
+
 Route::get('/solicitudCliente',[ClientController::class, 'solicitud'])->name('clients.solicitud');
 Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('clients.listaRemitos');
 
+Route::get('/categorias/edit/{id}',[CategoriaController::class, 'edit'])->name('categorias.edit');
+Route::post('/categorias/update/{id}',[CategoriaController::class, 'update'])->name('categorias.update');
+Route::get('/categorias/create',[CategoriaController::class, 'create'])->name('categorias.create');
+Route::delete('/categorias/delete/{id}',[CategoriaController::class, 'destroy'])->name('categorias.destroy');
+Route::post('/categorias/store',[CategoriaController::class, 'store'])->name('categoria.store');
+Route::get('/categorias',[CategoriaController::class, 'index'])->name('products.indexCategorias');
 Route::get('/filtrarPorCategoria/{id}',[CategoriaController::class, 'filtrar'])->name('clients.filtrarPorCategoria');
 
 Route::get('/generate-pdf/{id}', [RemitoController::class, 'generatePDF'])->name('clients.RemitosPDF');

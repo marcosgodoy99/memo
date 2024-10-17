@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
 use App\Models\Role;
@@ -72,7 +73,19 @@ class DatabaseSeeder extends Seeder
 
         $json = file_get_contents(public_path('products.json')); 
         $products = json_decode($json, true); 
+
+        $jsonC=file_get_contents(public_path('categories.json'));
+        $categories=json_decode($jsonC, true);
         
+        foreach ($categories as $Categorie) {
+           
+            Categoria::create([
+                'id'=> $Categorie['id'],
+                'name' => $Categorie['name'],
+                'created_at' => now(), // O puedes asignar un valor específico
+                'updated_at' => now(), // O puedes asignar un valor específico
+            ]);
+        }
         foreach ($products as $productData) {
            
             Product::create([
@@ -84,6 +97,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(), // O puedes asignar un valor específico
                 'updated_at' => now(), // O puedes asignar un valor específico
                 'links' => $productData['links'],
+                'categorias_id'=> $productData['categorias_id']
             ]);
         }
     }

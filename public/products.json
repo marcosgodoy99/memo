@@ -6,7 +6,7 @@
         "price": 5000.00,
         "description": "Harina Pureza 0000 500gr",
         "links": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBBfJeriaTcg2Wi4SpdiligmBsyWbheKTLOA&s",
-        "categorias_id": 1
+        "categorias_id": 4
     },
     {
         "code": "123",
@@ -42,7 +42,7 @@
         "price": 2000.00,
         "description": "Aceite girasol cocinero 1 lt",
         "links": "https://carrefourar.vtexassets.com/arquivos/ids/192373/7790070012050_02.jpg?v=637515947923630000",
-        "categorias_id": 1
+        "categorias_id": 3
     },
     {
         "code": "1896",
@@ -51,7 +51,7 @@
         "price": 4000.00,
         "description": "Aceite de oliva el cocinero 1lt",
         "links": "https://carrefourar.vtexassets.com/arquivos/ids/204443/7790070231871_02.jpg?v=637592983648570000",
-        "categorias_id": 1
+        "categorias_id": 3
     },
     {
         "code": "433",
@@ -60,7 +60,7 @@
         "price": 3000.00,
         "description": "Coca Cola de 1,5lt",
         "links": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeV4doi_fywyy7htmeU2V5vbke0OC_zfFx6Q&s",
-        "categorias_id": 1
+        "categorias_id": 2
     },
     {
         "code": "669",
@@ -69,7 +69,7 @@
         "price": 2000.00,
         "description": "Cerveza rubia schneider de litro",
         "links": "https://acdn.mitiendanube.com/stores/798/865/products/31270648-fed0d8f802c9f664d817026243412554-1024-1024.jpg",
-        "categorias_id": 1
+        "categorias_id": 2
     },
     {
         "code": "778",
@@ -87,6 +87,6 @@
         "price": 2000.00,
         "description": "Pan lactal bimbo 400gr",
         "links": "https://elnenearg.vtexassets.com/arquivos/ids/167658/PAN-BIMBO-BLANCO-LACTAL-X400GR-1-12403.jpg?v=638288337722870000",
-        "categorias_id": 1
+        "categorias_id": 4
     }
 ]
