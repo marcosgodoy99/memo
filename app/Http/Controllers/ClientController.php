@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Categoria;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -217,11 +218,13 @@ class ClientController extends Controller
                     ->with('error', 'No se encontro resultados del producto');
                 }
         $mensaje= $request->nombreProducto;
+        $categorias= Categoria::latest()->get();
 
         return view('dashboard',[
                 'products' => $products,
                 'users' => $users,
-                'mensaje' => $mensaje
+                'categorias'=> $categorias,
+                'mensaje' => $mensaje,
                             ]); 
     }
 

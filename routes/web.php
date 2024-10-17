@@ -5,9 +5,11 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RemitoController;
+use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
+use App\Models\Categoria;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\PDFController;
@@ -32,12 +34,14 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
 
     $users = Auth::user();
+    $categorias= Categoria::latest()->get();
     
 
     $products = Product::latest()->get();
     return view('dashboard',[
         'products' => $products,
         'users' => $users,
+        'categorias'=> $categorias
     ]); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -90,6 +94,9 @@ Route::get('/solicitud', function () {
 
 Route::get('/solicitudCliente',[ClientController::class, 'solicitud'])->name('clients.solicitud');
 Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('clients.listaRemitos');
+
+Route::get('/filtrarPorCategoria/{id}',[CategoriaController::class, 'filtrar'])->name('clients.filtrarPorCategoria');
+
 Route::get('/generate-pdf/{id}', [RemitoController::class, 'generatePDF'])->name('clients.RemitosPDF');
 Route::get('/generate-pdfDowload/{id}', [RemitoController::class, 'generatePDFDescarga'])->name('clients.RemitosPDFDescarga');
 

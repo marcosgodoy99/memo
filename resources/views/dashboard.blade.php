@@ -154,11 +154,13 @@
     <div class="categories-container">
       <h3>Categorías</h3>
       <ul>
-        {{-- @foreach ($categories as $category)
-          <li><a href="{{ route('clients.filtrarPorCategoria', ['categoria' => $category->id]) }}">{{ $category->name }}</a></li>
-        @endforeach --}}
+          @forelse ($categorias as $category)
+              <li><a href="{{ route('clients.filtrarPorCategoria', [$category->id]) }}">{{ $category->name }}</a></li>
+          @empty
+              <li>No hay categorías disponibles.</li> <!-- Aquí puedes personalizar tu mensaje -->
+          @endforelse
       </ul>
-    </div>
+  </div>
 
     <!-- Productos -->
     <div class="product-container">
