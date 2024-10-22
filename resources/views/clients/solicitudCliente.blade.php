@@ -5,36 +5,33 @@
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
 
-       
-
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    Editar
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('clients.index') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('clients.solicitud',) }}" method="post">
+                <form action="{{ route('clients.solicitudStore') }}" method="post">
                     @csrf
-                    @method("PUT")
 
                     <div class="mb-3 row">
-                        <label for="username" class="col-md-4 col-form-label text-md-end text-start">Nombre de cliente</label>
+                        <label for="username" class="col-md-4 col-form-label text-md-end text-start">Nombre de Cliente</label>
                         <div class="col-md-6">
-                          <input type="username" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $clients[0]->username }}">
+                          <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}">
                             @if ($errors->has('username'))
                                 <span class="text-danger">{{ $errors->first('username') }}</span>
                             @endif
                         </div>
                     </div>
 
+
                     <div class="mb-3 row">
                         <label for="address" class="col-md-4 col-form-label text-md-end text-start">Direccion</label>
                         <div class="col-md-6">
-                            <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address">{{ $clients[0]->address }}</textarea>
+                          <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}">
                             @if ($errors->has('address'))
                                 <span class="text-danger">{{ $errors->first('address') }}</span>
                             @endif
@@ -43,28 +40,35 @@
 
                     <div class="mb-3 row">
                         <label for="cuit" class="col-md-4 col-form-label text-md-end text-start">CUIT/DNI</label>
-                        <div class="col-md-6">
-                          <input type="number" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ $clients[0]->cuit }}">
-                            @if ($errors->has('cuit'))
+                            <div class="col-md-6">
+                                <input type="number" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ old('cuit') }}">
+                                @if ($errors->has('cuit'))
                                 <span class="text-danger">{{ $errors->first('cuit') }}</span>
-                            @endif
-                        </div>
+                                @endif
+                            </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label for="phone" class="col-md-4 col-form-label text-md-end text-start">Telefono</label>
                         <div class="col-md-6">
-                          <input type="number"  class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ $clients[0]->phone }}">
+                          <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}">
                             @if ($errors->has('phone'))
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
                             @endif
                         </div>
                     </div>
-
-                    <input type="hidden" name="users_id" value="{{$clients[0]->users_id}}">
+                    <div class="mb-3 row">
+                        <label for="users_id" class="col-md-4 col-form-label text-md-end text-start"></label>
+                        <div class="col-md-6">
+                        <input type="hidden" name="users_id" id="users_id" value="{{$id}}">
+                          @if ($errors->has('users_id'))
+                              <span class="text-danger">{{ $errors->first('users_id') }}</span>
+                          @endif
+                        </div>
+                    </div>
                     
                     <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Actualizar">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add Client">
                     </div>
                     
                 </form>

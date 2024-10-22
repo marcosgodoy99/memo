@@ -1,4 +1,4 @@
-@extends('categorias.layouts')
+@extends('products.layouts')
 
 @section('content')
 
@@ -28,7 +28,7 @@
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Nombre de la categoria</label>
                         <div class="col-md-6">
-                          <input type="name" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $categorias[0]->name }}">
+                          <input type="text"  pattern="[A-Za-z\s]+" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $categorias[0]->name }}">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
@@ -36,7 +36,7 @@
                     </div>
 
 
-                    <input type="hidden" name="users_id" value="{{$categorias[0]->users_id}}">
+                    <input type="hidden" name="id" value="{{$categorias[0]->id}}">
                     
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Actualizar">

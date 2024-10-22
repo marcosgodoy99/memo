@@ -53,17 +53,17 @@ class CategoriaController extends Controller
                     ->withSuccess('Categoria eliminada con exito');
     }
 
-    public function edit(Categoria $categorias) : View
+    public function edit( $id) : View
     {
-        $idCategoria = $categorias->id;
-
-        $categoria = DB::select('
+        
+        $categorias = DB::select('
             SELECT *
             FROM categorias 
-            WHERE id = :idCategoria', ['idCategoria' => $idCategoria]);
+            WHERE id = :idCategoria', ['idCategoria' => $id]);
+        
 
         return view('products.editCategorias', [
-            'categorias' => $categoria
+            'categorias' => $categorias
         ]);
     }
 
@@ -78,7 +78,7 @@ class CategoriaController extends Controller
             ->update([
                 'name' => $request->name,
             ]);
-        $categorias= Categoria::latest()->paginate(10);
+         
 
         return redirect()->route('products.indexCategorias')
                         ->with('success', 'Categoria editada con exito');

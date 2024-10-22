@@ -13,6 +13,7 @@ use App\Models\Categoria;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\SolicitudController;
 use App\Mail\RegisterMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -94,11 +95,14 @@ Route::get('/solicitud', function () {
 
 
 
-Route::get('/solicitudCliente',[ClientController::class, 'solicitud'])->name('clients.solicitud');
+Route::get('/solicitudCliente',[ClientController::class, 'solicitudMail'])->name('clients.solicitudMail');
 Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('clients.listaRemitos');
 
+Route::post('/solicitud/store', [SolicitudController::class, 'store'])->name('clients.solicitudStore');
+Route::get('/solicitud', [SolicitudController::class, 'solicitud'])->name('clients.solicitud');
+
 Route::get('/categorias/edit/{id}',[CategoriaController::class, 'edit'])->name('categorias.edit');
-Route::post('/categorias/update/{id}',[CategoriaController::class, 'update'])->name('categorias.update');
+Route::put('/categorias/update/{id}',[CategoriaController::class, 'update'])->name('categorias.update');
 Route::get('/categorias/create',[CategoriaController::class, 'create'])->name('categorias.create');
 Route::delete('/categorias/delete/{id}',[CategoriaController::class, 'destroy'])->name('categorias.destroy');
 Route::post('/categorias/store',[CategoriaController::class, 'store'])->name('categoria.store');

@@ -80,6 +80,9 @@
     border: none;
     cursor: pointer;
   }
+  .product-button:hover {
+    background-color: #033972;
+  }
 
   .search-container {
     margin-top: 20px; /* Ajusta la distancia superior */
@@ -116,6 +119,34 @@
   .search-button i {
     margin-right: 5px;
   }
+  .btn-custom {
+    display: block;
+    background-color: #f1f1f1; /* Fondo claro */
+    color: #333; /* Color del texto */
+    padding: 8px 15px; /* Padding más pequeño (8px en la parte superior e inferior) */
+    margin-bottom: 8px; /* Menos espacio entre los elementos */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    border: 1px solid #ddd; /* Borde claro */
+    font-size: 1rem; /* Tamaño de fuente un poco más pequeño */
+    text-align: left; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.btn-custom:hover {
+    background-color: #e0e0e0; /* Fondo más oscuro al hacer hover */
+    transform: scale(1.02); /* Efecto de agrandar ligeramente */
+    cursor: pointer; /* Cambiar el cursor a pointer */
+}
+
+.btn-custom:active {
+    background-color: #d4d4d4; /* Fondo más oscuro al hacer clic */
+    transform: scale(1); /* Vuelve al tamaño original al hacer clic */
+}
+.header-categorias {
+  font-size: 1.25em;
+  text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -152,10 +183,10 @@
   <div class="main-container">
     <!-- Listado de categorías -->
     <div class="categories-container">
-      <h3>Categorías</h3>
+      <div class="header-categorias">Categorías</div>
       <ul>
           @forelse ($categorias as $category)
-              <li><a href="{{ route('clients.filtrarPorCategoria', [$category->id]) }}">{{ $category->name }}</a></li>
+              <li><a href="{{ route('clients.filtrarPorCategoria', [$category->id]) }}" class="btn-custom">{{ $category->name }}</a></li>
           @empty
               <li>No hay categorías disponibles.</li> <!-- Aquí puedes personalizar tu mensaje -->
           @endforelse

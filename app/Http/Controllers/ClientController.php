@@ -228,16 +228,16 @@ class ClientController extends Controller
                             ]); 
     }
 
-    public function solicitud(){
+    // public function solicitudMail(){
         
         
 
-        Mail::raw('Correo de prueba desde Laravel', function ($message) {
-        $message->to('agustinhloa@gmail.com')
-            ->subject('Correo de Prueba');
-        });
+    //     Mail::raw('Correo de prueba desde Laravel', function ($message) {
+    //     $message->to('agustinhloa@gmail.com')
+    //         ->subject('Correo de Prueba');
+    //     });
         
-    }
+    // }
     
 }
 
