@@ -100,6 +100,9 @@ Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('cli
 
 Route::post('/solicitud/store', [SolicitudController::class, 'store'])->name('clients.solicitudStore');
 Route::get('/solicitud', [SolicitudController::class, 'solicitud'])->name('clients.solicitud');
+Route::get('/solicitud/admin', [SolicitudController::class, 'solicitudAdmin'])->name('clients.solicitudAdmin');
+Route::get('/solicitud/denegada/{id}', [SolicitudController::class, 'solicitudAceptada'])->name('clients.solicitudAceptada');
+Route::get('/solicitud/aceptada/{id}', [SolicitudController::class, 'solicitudDenegada'])->name('clients.solicitudDenegada');
 
 Route::get('/categorias/edit/{id}',[CategoriaController::class, 'edit'])->name('categorias.edit');
 Route::put('/categorias/update/{id}',[CategoriaController::class, 'update'])->name('categorias.update');
