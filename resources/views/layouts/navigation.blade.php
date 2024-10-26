@@ -27,10 +27,10 @@
                         {{ __('Lista de Clientes') }}
                     </x-nav-link>
 
+                    
                     <x-nav-link :href="route('clients.solicitudAdmin')" :active="request()->routeIs('clients.solicitudAdmin')">
                         {{ __('Lista de Solicitudes') }}
                     </x-nav-link>
-
                     @endcan
                     
                     <x-nav-link :href="route('clients.listaRemitos')" :active="request()->routeIs('clients.listaRemitos')">

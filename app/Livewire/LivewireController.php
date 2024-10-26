@@ -37,12 +37,22 @@ class LivewireController extends Component
     {
         $cantidadActual = $this->cantidadProducto;
 
+
         if ($operacion == 'incrementar') {
+            $stock=DB::select('SELECT stock
+            from products
+            where id = :idProducto',['idProducto' => $this->idProducto]);
+            if ($cantidadActual < $stock[0]->stock){
             DB::table('orders')
                 ->where('users_id', $this->userId)
                 ->where('products_id', $this->idProducto)
                 ->increment('quantity');
             $this->cantidadProducto++;
+             }else{
+                return redirect()->route('clients.order')
+            ->with('error', 'Alcanzo el limite de stock');
+             }
+            
         } elseif ($operacion == 'decrementar') {
             if ($cantidadActual >= 1) {
                 DB::table('orders')

@@ -139,12 +139,36 @@ class PDFController extends Controller
                 'price' => $order->price,
                 'subtotal' => $order->precio_orden,
             ];
-        }
+        
+        $product=DB::SELECT('SELECT stock
+        from products
+        where id = :idProduct',['idProduct' => $order->products_id]);
+
+            if ($product) {
+                $currentStock = $product[0]->stock;
+
+                // Calcula el nuevo stock
+                $newStock = $currentStock - $order->quantity;
+
+                // Asegúrate de que no estés restando más de lo que hay en stock
+                if ($newStock < 0) {
+                    return response()->json(['error' => 'No hay suficiente stock para el producto: ' . $order->name], 400);
+                }
+
+                // Actualiza el stock en la base de datos
+                DB::update('UPDATE products SET stock = :newStock WHERE id = :idProduct', [
+                    'newStock' => $newStock,
+                    'idProduct' => $order->products_id,
+                ]);
+        
+
+            }
     
         // Inserta las líneas del remito
         lineasRemito::insert($request);
     
         // Eliminar órdenes del usuario
         DB::delete('DELETE FROM orders WHERE users_id = :userId', ['userId' => $userId]);
+        }
     }
 }

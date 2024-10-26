@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -26,7 +27,11 @@ class ProductController extends Controller
      */
     public function create() : View
     {
-        return view('products.create');
+        $categorias= DB::select('SELECT *
+                            FROM categorias');
+
+        return view('products.create', 
+    ['categorias'=> $categorias]);
     }
 
     /**
@@ -79,7 +84,6 @@ class ProductController extends Controller
         return redirect()->route('products.index')
                 ->withSuccess('Product is deleted successfully.');
     }
-
 
 
 }

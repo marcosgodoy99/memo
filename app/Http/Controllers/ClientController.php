@@ -199,14 +199,17 @@ class ClientController extends Controller
             ->with('error', 'Cliente no encontrado');
         }
     }
-    public function searchProducts(Request $request){
 
+    
+    public function searchProducts(Request $request){
+        
         if ($request->nombreProducto == null) {
             return redirect()->route('dashboard')
                     ->with('error', 'No se encontro resultados del producto');
                 }
 
         $users = Auth::user();
+        
         $products=DB::select('SELECT *
                                 FROM products
                                 WHERE products.name like :nombreProducto
@@ -227,6 +230,8 @@ class ClientController extends Controller
                 'mensaje' => $mensaje,
                             ]); 
     }
+
+    
 
     // public function solicitudMail(){
         

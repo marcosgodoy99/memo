@@ -38,7 +38,7 @@
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $product->name }}">
+                          <input type="text" class="form-control @error('name') is-invalid @enderror" pattern="[A-Za-z0-9\s]+" id="name" name="name" value="{{ $product->name }}">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif

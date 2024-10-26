@@ -27,6 +27,7 @@
                             <tr>
                             <th scope="col">ID</th>
                             <th scope="col">NOMBRE</th>
+                            <th scope="col">NOMBRE USUARIO</th>
                             <th scope="col">FECHA</th>
                             <th scope="col">DIRECCION</th>
                             <th scope="col">CUIT/DNI</th>
@@ -39,6 +40,7 @@
                             <tr>
                                 <td>{{ $solicitud->id }}</td>
                                 <td>{{ $solicitud->username }}</td>
+                                <td>{{ $solicitud->email }}</td>
                                 <td>{{ date('d/m/Y H:i', strtotime($solicitud->created_at))}}</td>
                                 <td>{{ $solicitud->address  }}</td>
                                 <td>{{ $solicitud->cuit}}</td>
@@ -60,7 +62,7 @@
                         </tbody>
                       </table>
     
-                   
+                      {{ $solicitudes->links() }} 
     
                 </div>
             </div>

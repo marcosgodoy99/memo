@@ -75,7 +75,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::resource('/products', ProductController::class); 
     });
     Route::get('/clients/buscarClientes',[ClientController::class, 'search'])->name('clients.buscarClientes');
-    Route::get('/clients/buscarProductos',[ClientController::class, 'searchProducts'])->name('clients.buscarProductos');
     Route::resource('/clients', ClientController::class)->names([
         'index' => 'clients.index',
         'create' => 'clients.create',
@@ -89,17 +88,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-Route::get('/solicitud', function () {
-    return view('clients.solicitudCliente');
-});
+// Route::get('/solicitud', function () {
+//     return view('clients.solicitudCliente');
+// });
 
-
-
+Route::get('/clie/buscarProductos',[ClientController::class, 'searchProducts'])->name('clients.buscarProductos');
 Route::get('/solicitudCliente',[ClientController::class, 'solicitudMail'])->name('clients.solicitudMail');
 Route::get('/listaRemitos', [RemitoController::class, 'listaRemito'])->name('clients.listaRemitos');
 
 Route::post('/solicitud/store', [SolicitudController::class, 'store'])->name('clients.solicitudStore');
-Route::get('/solicitud', [SolicitudController::class, 'solicitud'])->name('clients.solicitud');
+Route::get('/solicitud1', [SolicitudController::class, 'solicitud'])->name('clients.solicitud');
 Route::get('/solicitud/admin', [SolicitudController::class, 'solicitudAdmin'])->name('clients.solicitudAdmin');
 Route::get('/solicitud/denegada/{id}', [SolicitudController::class, 'solicitudAceptada'])->name('clients.solicitudAceptada');
 Route::get('/solicitud/aceptada/{id}', [SolicitudController::class, 'solicitudDenegada'])->name('clients.solicitudDenegada');

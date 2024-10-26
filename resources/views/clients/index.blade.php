@@ -69,7 +69,7 @@
                     </tbody>
                   </table>
 
-                  {{-- {{ $clients->links() }} --}}
+                   {{ $clients->links() }} 
 
             </div>
         </div>

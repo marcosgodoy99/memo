@@ -20,14 +20,11 @@ class SolicitudController extends Controller
     }
     public function solicitudAdmin()   
     {
-        $id=Auth::id();
-        
-        $solicitudes=DB::select("SELECT *
-                                FROM solicituds"
-                                );
+        $solicitudes = Solicitud::select('solicituds.*', 'users.email')
+            ->join('users', 'users.id', '=', 'solicituds.users_id')
+            ->paginate(10);
     
         return view('clients.solicitudAdmin',[
-            'id'=> $id,
             'solicitudes'=> $solicitudes]);
         }
 

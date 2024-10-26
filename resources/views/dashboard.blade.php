@@ -84,6 +84,15 @@
     background-color: #033972;
   }
 
+  .sold-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #bd0606;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
+
   .search-container {
     margin-top: 20px; /* Ajusta la distancia superior */
     display: flex;
@@ -167,6 +176,7 @@
 
   <div class="search-container">
     <form action="{{route('clients.buscarProductos') }}" method="get" class="search-form">
+      @csrf
       <input type="search" name="nombreProducto" id="nombreProducto" class="search-input" placeholder="Buscar producto...">
       <button type="submit" class="search-button"><i class="bi bi-search"></i></button>
     </form>
@@ -196,12 +206,14 @@
     <!-- Productos -->
     <div class="product-container">
       @foreach ($products as $product)
+
       <div class="product-card" id="product-{{$product->id}}">
         <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
         <div class="product-details">
           <div class="product-name">{{ $product->name }}</div>
           <div class="product-price">${{ number_format($product->price, 2, ',', '.') }}</div>
           <div class="product-description">{{ $product->description }}</div>
+          @if($product->stock > 0)
           <form action="{{ route('orders.buy') }}" method="get"> 
             @csrf
             <input type="hidden" name="products_id" value="{{ $product->id }}">
@@ -209,6 +221,11 @@
             <input type="hidden" name="name" value="{{$product->name}}">
             <button class="product-button" type="submit">Comprar</button>
           </form>
+          @else
+          <button class="sold-button" type="submit">Sold</button>
+          @endif
+
+
         </div>
       </div>
       @endforeach
