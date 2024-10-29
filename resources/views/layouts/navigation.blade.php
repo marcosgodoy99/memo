@@ -81,11 +81,17 @@
                     </x-slot>
                 </x-dropdown>
 
-                <a href="{{ route('clients.order') }}" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md focus:outline-none transition ease-in-out duration-150 btn btn-outline-primary">
+                <a href="{{ route('clients.order') }}" class="relative inline-flex items-center px-2 py-1 border border-transparent rounded-md focus:outline-none transition ease-in-out duration-150 btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                         <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
-                    </svg>Carrito
-                </a>
+                    </svg>
+                    Carrito
+                    @if($orderCount > 0)
+                        <span class="absolute top-0 right-0 translate-x-1 -translate-y-1 bg-red-500 text-white rounded-full h-4 w-4 text-xs flex items-center justify-center">
+                            {{ $orderCount }}
+                        </span>
+                    @endif
+                </a
                     
             
 

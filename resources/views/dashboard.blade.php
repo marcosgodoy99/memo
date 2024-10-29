@@ -163,9 +163,6 @@
   @if ($message = Session::get('success'))
       <div class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
           {{ $message }}
-          <a href="{{ route('clients.order') }}" class="btn btn-outline-info">
-              <i class="bi bi-cart-check-fill"> Ir al carrito</i>
-          </a>
       </div>
   @endif
   @if ($message = Session::get('error'))

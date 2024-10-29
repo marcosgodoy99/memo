@@ -69,10 +69,10 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="categorias_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione Usuario</label>
+                        <label for="categorias_id" class="col-md-4 col-form-label text-md-end text-start">Seleccione una categoria</label>
                         <div class="col-md-6">
                           <select class="form-control @error('categorias_id') is-invalid @enderror" id="categorias_id" name="categorias_id">
-                              <option value="">Seleccione un usuario</option>
+                              <option value="">Categorias</option>
                               @foreach ($categorias as $categoria)
                                   <option value="{{ $categoria->id }}" {{ old('categorias_id') == $categoria->id ? 'selected' : '' }}>
                                       {{ $categoria->name }}

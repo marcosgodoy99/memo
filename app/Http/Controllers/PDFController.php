@@ -37,7 +37,7 @@ class PDFController extends Controller
                 'remito' => $remito];
         $pdf = PDF::loadView('clients/pdfDocument', $data);
         $this->save($request->clients_id);
-        return $pdf->stream('documento_de_prueba.pdf');
+        return $pdf->download('documento_de_prueba.pdf');
     }
     public function consulta(){
 
