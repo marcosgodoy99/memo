@@ -18,14 +18,14 @@
         @endif
 
         <div class="card">
-            <div class="card-header">Categories List</div>
+            <div class="card-header">Lista de categorias</div>
             <div class="card-body">
                 <a href="{{ route('categorias.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New categoria</a>
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">NOMBRE CATEGORIA</th>
 
                       </tr>
                     </thead>

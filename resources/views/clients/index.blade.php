@@ -31,11 +31,11 @@
                     <thead>
                       <tr>
                         <th scope="col">Nro</th>
-                        <th scope="col">Nombre de Cliente</th>
-                        <th scope="col">Direccion</th>
+                        <th scope="col">NOMBRE DEL CLIENTE</th>
+                        <th scope="col">DIRECCION</th>
                         <th scope="col">CUIT</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">TELEFONO</th>
+                        <th scope="col">ACCIONES</th>
                       </tr>
                     </thead>
                     <tbody>

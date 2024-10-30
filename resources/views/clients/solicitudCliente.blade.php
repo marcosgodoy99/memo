@@ -18,7 +18,7 @@
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="username" class="col-md-4 col-form-label text-md-end text-start">Nombre de Cliente</label>
+                        <label for="username" class="col-md-4 col-form-label text-md-end text-start">NOMBRE CLIENTE</label>
                         <div class="col-md-6">
                           <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" pattern="[A-Za-z\s]+" name="username" value="{{ old('username') }}">
                             @if ($errors->has('username'))
@@ -29,7 +29,7 @@
 
 
                     <div class="mb-3 row">
-                        <label for="address" class="col-md-4 col-form-label text-md-end text-start">Direccion</label>
+                        <label for="address" class="col-md-4 col-form-label text-md-end text-start">DIRECCION</label>
                         <div class="col-md-6">
                           <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address') }}">
                             @if ($errors->has('address'))
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="phone" class="col-md-4 col-form-label text-md-end text-start">Telefono</label>
+                        <label for="phone" class="col-md-4 col-form-label text-md-end text-start">TELEFONO</label>
                         <div class="col-md-6">
                           <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}">
                             @if ($errors->has('phone'))

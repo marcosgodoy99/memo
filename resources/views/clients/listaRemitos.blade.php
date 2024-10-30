@@ -20,12 +20,12 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                            <th scope="col">Numero Remito</th>
-                            <th scope="col">Nombre Cliente</th>
-                            <th scope="col">Fecha Remito</th>
-                            <th scope="col">Direccion</th>
+                            <th scope="col">NUMERO DE REMITO</th>
+                            <th scope="col">NOMBRE CLIENTE</th>
+                            <th scope="col">FECHA DEL REMITO</th>
+                            <th scope="col">DIRECCION</th>
                             <th scope="col">CUIT</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">ACCIONES</th>
                           </tr>
                         </thead>
                         <tbody>
