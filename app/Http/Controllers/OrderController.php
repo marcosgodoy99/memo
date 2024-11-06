@@ -19,7 +19,35 @@ class OrderController extends Controller
 {
     
 public function order(Request $request){
-    
+     
+
+        $quantityOrder=DB::select('SELECT 
+                                        stock -
+                                        COALESCE((SELECT SUM(quantity)
+                                                            FROM orders
+                                                            WHERE orders.products_id = p.id and
+                                                            orders.users_id = :idUsers),0) - :reQuantity AS total
+                                    FROM products AS p
+                                    WHERE p.id = :idProducts ',[
+                                    'idProducts'=> $request->products_id,'idUsers'=> $request->users_id,'reQuantity'=> $request->quantity]);
+        
+                //  dd($quantityOrder[0]->total);                   
+                if ($quantityOrder[0]->total < 0 ) {
+                    
+                    $orderBuy=DB::select('SELECT *
+                                    FROM products
+                                    where products.id = :idProducts '
+                                    ,['idProducts'=>$request->products_id ]);
+                    
+                    $idUser=$request->users_id;
+                    $mensaje="Error, supero el limite de compra papa";
+                    
+                    return view('clients.buyOrder', [
+                        'product' => $orderBuy,
+                        'idUser'=>$idUser,
+                        'mensaje'=>$mensaje ]);
+            }
+                                                                
         if ($request->quantity != 0) {
             
             $order=DB::Select(' SELECT *
@@ -99,6 +127,7 @@ public function order(Request $request){
     public function buy(Request $request) : View{
 
 
+               
         $orderBuy=DB::select('SELECT *
                         FROM products
                         where products.id = :idProducts '

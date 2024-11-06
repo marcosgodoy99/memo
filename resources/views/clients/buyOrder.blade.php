@@ -112,6 +112,12 @@
                     {{ $mensaje }}
             </div>
         @endif
+
+        @if ($message = Session::get('error'))
+            <div class="alert alert-error" role="alert">
+                {{ $message }}
+            </div>
+    @endif
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
         <div class="product-card">
