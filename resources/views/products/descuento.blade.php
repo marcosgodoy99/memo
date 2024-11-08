@@ -1,5 +1,40 @@
-
 @extends('products.layouts')
+
+@section('content')
+
+<div class="row justify-content-center mt-3">
+    <div class="col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="float-start">
+                    Agregar Nuevo descuento
+                </div>
+                <div class="float-end">
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('dashboard') }}" method="post">
+                    @csrf
+
+                    <div class="mb-3 row">
+                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">NOMBRE DESCUENTO</label>
+                        <div class="col-md-6">
+                          <input type="text"  class="form-control @error('name') is-invalid @enderror" pattern="[A-Za-z\s]+" id="name" name="name" value="{{ old('name') }}">
+                            @if ($errors->has('name'))
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Crear">
+                    </div>
+                    
+
+
+                    @extends('products.layouts')
 
 @section('content')
 <x-app-layout>
@@ -98,13 +133,8 @@
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this product?');"><i class="bi bi-trash"></i> </button>
                                     
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i></a>
-                                    @if (!$descuento->contains('product_id', $product->id))
-                                        <!-- Si no tiene descuento, mostrar el botón de descuento del 10% -->
-                                        <a href="{{ route('product.descuento', $product->id) }}" class="btn btn-success btn-sm">-10%</a>
-                                    @else
-                                        <!-- Si ya tiene descuento, mostrar un mensaje o nada -->
-                                        <span>Descuento aplicado</span>
-                                    @endif
+                        
+                                    
                                     
                                 </form>
                             </td>
@@ -127,4 +157,3 @@
 </div>
 </x-app-layout>
 @endsection
-

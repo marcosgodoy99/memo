@@ -26,7 +26,7 @@
                     @method("PUT")
 
                     <div class="mb-3 row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Nombre de la categoria</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">NOMBRE DE LA CATEGORIA</label>
                         <div class="col-md-6">
                           <input type="text"  pattern="[A-Za-z\s]+" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $categorias[0]->name }}">
                             @if ($errors->has('name'))

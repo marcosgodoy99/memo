@@ -181,11 +181,11 @@ class ClientController extends Controller
             return redirect()->route('clients.index')
             ->with('error', 'Ingrese nombre del cliente para buscarlo');
         }
-        $clientes = DB::select('SELECT *   
-                        FROM clients
-                        WHERE clients.username LIKE :nombreCliente
-                        order by username ASC', 
-                        ["nombreCliente" => '%' . $request->nombreCliente . '%']);
+        
+        $clientes = Client::where('username', 'like', '%' . $request->nombreCliente . '%')
+                  ->orderBy('username', 'asc')
+                  ->paginate(10); 
+
 
         if ($clientes != null) {
             return view('clients.index', [
@@ -231,7 +231,27 @@ class ClientController extends Controller
                             ]); 
     }
 
+    public function showCategoryImages()
+    {
+        $images = [
+            'images/oferta.jpg',
+        ];
+        
+        
+        return $images;
+    }
     
+    public function redirect(){
+
+        $users = Auth::user();
+        $products = Product::latest()->get();
+        
+        return view('products.ofertas',[
+            'products' => $products,
+            'users' => $users,
+        ]); 
+
+    }
 
     // public function solicitudMail(){
         

@@ -8,10 +8,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    Add New Product
+                    Agregar Nueva Categoria
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('products.indexCategorias') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                    <a href="{{ route('products.indexCategorias') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
                 </div>
             </div>
             <div class="card-body">
@@ -19,7 +19,7 @@
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name Categories</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">NOMBRE CATEGORIA</label>
                         <div class="col-md-6">
                           <input type="text"  class="form-control @error('name') is-invalid @enderror" pattern="[A-Za-z\s]+" id="name" name="name" value="{{ old('name') }}">
                             @if ($errors->has('name'))

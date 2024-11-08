@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
+use App\Models\Descuento;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -36,13 +37,16 @@ Route::get('/dashboard', function () {
 
     $users = Auth::user();
     $categorias= Categoria::latest()->get();
+    $clientController = new ClientController();
     
+    $images = $clientController->showCategoryImages();
 
     $products = Product::latest()->get();
     return view('dashboard',[
         'products' => $products,
         'users' => $users,
-        'categorias'=> $categorias
+        'categorias'=> $categorias,
+        'images' => $images,
     ]); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -69,11 +73,13 @@ Route::get('/orders/user', [ClientController::class, 'orderUser'])->name('client
 //Route::resource('clients', ClientController::class);
 //Route::get('login', [ClientController::class, 'login'])->name('login');
 Route::view('/products/home', 'products.home')->name('products.home');
+Route::get('/buscarProductos',[ProductController::class, 'search'])->name('product.buscarProductos');
 Route::middleware(['auth', 'role:admin'])->group(function () {
     
     Route::middleware(['auditoriaProductos'])->group(function (){
         Route::resource('/products', ProductController::class); 
     });
+    
     Route::get('/clients/buscarClientes',[ClientController::class, 'search'])->name('clients.buscarClientes');
     Route::resource('/clients', ClientController::class)->names([
         'index' => 'clients.index',
@@ -112,6 +118,9 @@ Route::get('/filtrarPorCategoria/{id}',[CategoriaController::class, 'filtrar'])-
 
 Route::get('/generate-pdf/{id}', [RemitoController::class, 'generatePDF'])->name('clients.RemitosPDF');
 Route::get('/generate-pdfDowload/{id}', [RemitoController::class, 'generatePDFDescarga'])->name('clients.RemitosPDFDescarga');
+
+Route::get('/clie/image/', [ClientController::class, 'redirect'])->name('clients.imageRedirect');
+Route::get('/dto/{id}',[ProductController::class, 'descuento'])->name('product.descuento');
 
 
     

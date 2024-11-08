@@ -201,29 +201,6 @@
     @endif
   </div>
 
-  <div class="main-container">
-    <!-- Listado de categorías -->
-    <div class="categories-container">
-      <div class="header-categorias">Categorías</div>
-      <ul>
-          @forelse ($categorias as $category)
-              <li><a href="{{ route('clients.filtrarPorCategoria', [$category->id]) }}" class="btn-custom">{{ $category->name }}</a></li>
-          @empty
-              <li>No hay categorías disponibles.</li> <!-- Aquí puedes personalizar tu mensaje -->
-          @endforelse
-      </ul>
-  
-      <div class="image-category-container">
-        @foreach ($images as $imagePath)
-            <a href="{{ route('clients.imageRedirect') }}">
-                <img src="{{ asset($imagePath) }}" alt="Imagen categoría" class="image-category">
-            </a>
-        @endforeach
-    </div>
-    
-
-  </div>
-
     <!-- Productos -->
     <div class="product-container">
       @foreach ($products as $product)

@@ -20,7 +20,7 @@
         <div class="card">
             <div class="card-header">Lista de categorias</div>
             <div class="card-body">
-                <a href="{{ route('categorias.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New categoria</a>
+                <a href="{{ route('categorias.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Agregar Nueva Categoria</a>
                 <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
@@ -41,13 +41,13 @@
                                 <form action="{{ route('categorias.destroy', $categoria->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('categorias.edit', $categoria->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                    <a href="{{ route('categorias.edit', $categoria->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
 
                                     
                                     
                                     {{-- <a href="{{ route('categorias.show', $categoria->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a> --}}
                                     
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Quieres eliminar esta categoria?');"><i class="bi bi-trash"></i> Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Quieres eliminar esta categoria?');"><i class="bi bi-trash"></i></button>
                                     
                                     
                                 </form>
@@ -56,7 +56,7 @@
                         @empty
                             <td colspan="6">
                                 <span class="text-danger">
-                                    <strong>No categoria Found!</strong>
+                                    <strong>Categoria No Encontrada!</strong>
                                 </span>
                             </td>
                         @endforelse

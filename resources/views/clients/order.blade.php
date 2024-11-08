@@ -105,17 +105,22 @@
                     </div> 
                 </div>
             </div>
-            <form action="{{ route('clients.PDF')}}" method="GET" class="btn-custom btn-lg">
+            <form action="{{ route('clients.PDF')}}" method="GET" class="btn-custom btn-lg"  onsubmit="recargar()">
                 <input type="hidden" name="clients_id" id="hidden_clients_id">
                 <div class="text-center">
-                    <button  type="submit" >Comprar Orden</button>
+                    <button  type="submit">Comprar Orden</button>
                 </div>
 
             </form>
     </div>    
 </div>
 <script>
-    // Cuando se cambie el select de cliente, actualiza el campo hidden
+     function recargar() {
+        // Esto recargará la página actual después de enviar el formulario
+        setTimeout(function() {
+            location.reload(); // Recarga la página
+        }, 1000); // Espera 1 segundo para que el formulario se procese
+    }
     document.getElementById('clients_id').addEventListener('change', function() {
         document.getElementById('hidden_clients_id').value = this.value;
     });
