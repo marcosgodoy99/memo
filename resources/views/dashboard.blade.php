@@ -31,6 +31,9 @@
     padding: 20px;
     box-sizing: border-box;
   }
+  .product-image-container {
+  position: relative;
+}
 
   .product-card {
     flex: 1 1 200px;
@@ -170,6 +173,15 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  .off-image {
+    position: absolute;
+    top: 5px; /* Ajusta la posición vertical */
+    right: 5px; /* Ajusta la posición horizontal */
+    width: 60px; /* Tamaño más grande */
+    height: 60px; /* Tamaño más grande */
+    object-fit: contain; /* Asegura que la imagen no se deforme */
+    z-index: 1; /* Asegura que la imagen esté por encima de la imagen del producto */
+}
 </style>
 </head>
 <body>
@@ -229,7 +241,16 @@
       @foreach ($products as $product)
 
       <div class="product-card" id="product-{{$product->id}}">
-        <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
+        <div class="product-image-container">
+            <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
+            @if (!$descuento->contains('product_id', $product->id))
+              <!-- Si no tiene descuento, mostrar el botón de descuento del 10% -->
+              @else
+              <!-- Si ya tiene descuento, mostrar un mensaje o nada -->
+              <img class="off-image" src="{{ asset('images/off.png') }}" alt="Off">
+            @endif
+        </div>  
+
         <div class="product-details">
           <div class="product-name">{{ $product->name }}</div>
           <div class="product-price">${{ number_format($product->price, 2, ',', '.') }}</div>

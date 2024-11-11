@@ -51,7 +51,7 @@ class ProductController extends Controller
         Product::create($request->all());
         
         return redirect()->route('products.index')
-                ->withSuccess('New product is added successfully.');
+                ->withSuccess('Se agrego un nuevo producto correctamente.');
     }
 
     /**
@@ -81,7 +81,7 @@ class ProductController extends Controller
     {
         $product->update($request->all());
         return redirect()->route('products.index')
-                ->withSuccess('Product is updated successfully.');
+                ->withSuccess('El producto se actualizo correctamente');
     }
 
     /**
@@ -91,15 +91,15 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index')
-                ->withSuccess('Product is deleted successfully.');
+                ->withSuccess('El producto se elimino correctamente.');
     }
 
 
-    public function search(Request $request){
-        
+    public function searchP(Request $request){
+
         if ($request->nombreProducto == null) {
             return redirect()->route('products.index')
-                    ->with('error', 'No se encontro resultados del producto');
+                    ->with('error', 'Ingrese nombre del producto para buscarlo');
                 }
 
         $users = Auth::user();
@@ -113,11 +113,13 @@ class ProductController extends Controller
                     ->with('error', 'No se encontro resultados del producto');
                 }
         $mensaje= $request->nombreProducto;
+        $descuento = Descuento::whereIn('product_id', $products->pluck('id'))->get();
 
         return view('products.index',[
                 'products' => $products,
                 'users' => $users,
                 'mensaje' => $mensaje,
+                'descuento'=>$descuento
                             ]); 
     }
 
@@ -127,7 +129,6 @@ class ProductController extends Controller
     $descuento = new Descuento();
     $descuento->descuento = 10; 
     $descuento->product_id = $id;
-
     
     $product = DB::select('SELECT price, id FROM products WHERE id = :id', ['id' => $id]);
 

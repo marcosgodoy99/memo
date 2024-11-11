@@ -51,7 +51,7 @@ class ClientController extends Controller
     {
         Client::create($request->all());
         return redirect()->route('clients.index')
-                ->withSuccess('New client is added successfully.');
+                ->withSuccess('El cliente fue agregado con exito.');
     }
 
     /**
@@ -118,7 +118,7 @@ class ClientController extends Controller
     $clients= Client::latest()->paginate(10);
 
     return redirect()->route('clients.index', $clients)
-                     ->with('success', 'Client updated successfully');
+                     ->with('success', 'El cliente fue actualizado con exito.');
 }
 
     /**
@@ -138,7 +138,7 @@ class ClientController extends Controller
         // ', ['userId' => $idClient]);
         
         return redirect()->route('clients.index')
-                ->withSuccess('Client is deleted successfully.');
+                ->withSuccess('El cliente fue eliminado con exito.');
     }
     
     public function orderUser(){
@@ -241,17 +241,32 @@ class ClientController extends Controller
         return $images;
     }
     
-    public function redirect(){
-
-        $users = Auth::user();
-        $products = Product::latest()->get();
+    public function redirect()
+    {
+        $product = DB::select('SELECT products.*, descuentos.descuento 
+                                FROM products
+                                INNER JOIN descuentos ON products.id = descuentos.product_id');
         
-        return view('products.ofertas',[
-            'products' => $products,
+        $users = Auth::user();
+    
+        // Iteramos los productos para calcular el precio original
+        foreach ($product as $products) {
+            // Obtenemos el porcentaje de descuento
+            $descuento = $products->descuento; // Asegúrate de que en la tabla descuentos tengas una columna llamada "discount"
+            
+            // Calculamos el precio antes del descuento
+            $precioReal = $products->price / (1 - ($descuento / 100));
+    
+            // Agregamos el precio real al producto
+            $products->precioReal = $precioReal; // Redondeamos a 2 decimales si es necesario
+        }
+        
+        return view('products.ofertas', [
+            'products' => $product,
             'users' => $users,
-        ]); 
-
+        ]);
     }
+    
 
     // public function solicitudMail(){
         

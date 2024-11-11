@@ -33,6 +33,7 @@
   }
 
   .product-card {
+    position: relative;
     flex: 1 1 200px;
     max-width: 200px;
     border: 1px solid #ccc;
@@ -46,6 +47,9 @@
     height: 200px;
     object-fit: contain;
   }
+  .product-image-container {
+  position: relative;
+}
 
   .product-details {
     padding: 10px;
@@ -71,6 +75,12 @@
     overflow: hidden;    
     text-overflow: ellipsis;
   }
+  .product-price-discount {
+    color: #888; /* Puedes ajustar el color según tu diseño */
+    font-size: 1rem; /* Tamaño de fuente, ajustable según tu preferencia */
+    text-decoration: line-through; /* Tacha el texto */
+    margin-right: 10px; /* Espaciado a la derecha */
+}
 
   .product-button {
     width: 100%;
@@ -170,6 +180,57 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  .no-offers-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Cambiado de center a flex-start */
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    padding-top: 20vh; /* Añadir padding para ajustar hacia arriba */
+}
+
+.no-offers-message {
+    color: red;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.back-button:active {
+    background-color: #004080;
+    transform: scale(1);
+}
+.off-image {
+    position: absolute;
+    top: 5px; /* Ajusta la posición vertical */
+    right: 5px; /* Ajusta la posición horizontal */
+    width: 60px; /* Tamaño más grande */
+    height: 60px; /* Tamaño más grande */
+    object-fit: contain; /* Asegura que la imagen no se deforme */
+    z-index: 1; /* Asegura que la imagen esté por encima de la imagen del producto */
+}
+
 </style>
 </head>
 <body>
@@ -202,16 +263,25 @@
   </div>
 
     <!-- Productos -->
-    <div class="product-container">
-      @foreach ($products as $product)
+<div class="product-container">
+  @forelse ($products as $product)
 
-      <div class="product-card" id="product-{{$product->id}}">
-        <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
-        <div class="product-details">
-          <div class="product-name">{{ $product->name }}</div>
-          <div class="product-price">${{ number_format($product->price, 2, ',', '.') }}</div>
-          <div class="product-description">{{ $product->description }}</div>
-          @if($product->stock > 0)
+    <div class="product-card" id="product-{{$product->id}}">
+
+      <div class="product-image-container">
+        <img class="product-image" src="{{ asset($product->links) }}" alt="{{ $product->name }}">
+        @if($product->precioReal > $product->price)
+          <img class="off-image" src="{{ asset('images/off.png') }}" alt="Off">
+        @endif
+      </div>
+
+      <div class="product-details">
+        <div class="product-name">{{ $product->name }}</div>
+        <div class="product-price-discount">${{ number_format($product->precioReal, 2, ',', '.') }}</div>
+        <div class="product-price">${{ number_format($product->price, 2, ',', '.') }}</div>
+        <div class="product-description">{{ $product->description }}</div>
+
+        @if($product->stock > 0)
           <form action="{{ route('orders.buy') }}" method="get"> 
             @csrf
             <input type="hidden" name="products_id" value="{{ $product->id }}">
@@ -219,16 +289,22 @@
             <input type="hidden" name="name" value="{{$product->name}}">
             <button class="product-button" type="submit">Comprar</button>
           </form>
-          @else
+        @else
           <button class="sold-button" type="submit">Sold</button>
-          @endif
+        @endif
 
-
-        </div>
       </div>
-      @endforeach
     </div>
+    @empty
+  <div class="no-offers-message-container">
+    <div class="no-offers-message">
+      No hay ofertas disponibles
+    </div>
+    <a href="{{ route('dashboard') }}" class="back-button">&larr; Volver</a>
   </div>
+@endforelse
+
+
 
 </body>
 </html>

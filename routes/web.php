@@ -42,11 +42,13 @@ Route::get('/dashboard', function () {
     $images = $clientController->showCategoryImages();
 
     $products = Product::latest()->get();
+    $descuento = Descuento::whereIn('product_id', $products->pluck('id'))->get();
     return view('dashboard',[
         'products' => $products,
         'users' => $users,
         'categorias'=> $categorias,
         'images' => $images,
+        'descuento' => $descuento,
     ]); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -73,7 +75,7 @@ Route::get('/orders/user', [ClientController::class, 'orderUser'])->name('client
 //Route::resource('clients', ClientController::class);
 //Route::get('login', [ClientController::class, 'login'])->name('login');
 Route::view('/products/home', 'products.home')->name('products.home');
-Route::get('/buscarProductos',[ProductController::class, 'search'])->name('product.buscarProductos');
+Route::get('/buscarProductos',[ProductController::class, 'searchP'])->name('product.buscarProductos');
 Route::middleware(['auth', 'role:admin'])->group(function () {
     
     Route::middleware(['auditoriaProductos'])->group(function (){
