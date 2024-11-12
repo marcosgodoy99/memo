@@ -43,6 +43,12 @@
     overflow: hidden;
     box-sizing: border-box;
   }
+  .product-price-discount {
+    color: #888; /* Puedes ajustar el color según tu diseño */
+    font-size: 1rem; /* Tamaño de fuente, ajustable según tu preferencia */
+    text-decoration: line-through; /* Tacha el texto */
+    margin-right: 10px; /* Espaciado a la derecha */
+}
 
   .product-image {
     width: 100%;
@@ -244,15 +250,24 @@
         <div class="product-image-container">
             <img class="product-image" src="{{$product->links }}" alt="{{ $product->name }}">
             @if (!$descuento->contains('product_id', $product->id))
-              <!-- Si no tiene descuento, mostrar el botón de descuento del 10% -->
+            
               @else
-              <!-- Si ya tiene descuento, mostrar un mensaje o nada -->
+             
               <img class="off-image" src="{{ asset('images/off.png') }}" alt="Off">
             @endif
         </div>  
 
         <div class="product-details">
           <div class="product-name">{{ $product->name }}</div>
+            @if (!$descuento->contains('product_id', $product->id))
+
+            @else
+            @php
+
+                $precioReal = $product->price / (1 - (10 / 100)); 
+            @endphp
+                <div class="product-price-discount">${{ number_format($precioReal, 2, ',', '.') }}</div>
+            @endif
           <div class="product-price">${{ number_format($product->price, 2, ',', '.') }}</div>
           <div class="product-description">{{ $product->description }}</div>
           @if($product->stock > 0)

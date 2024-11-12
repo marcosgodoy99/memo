@@ -95,24 +95,29 @@
                             <td>{{ $product->price }}</td>
                             <td>
                             
-                            
+                            <div class="form-group d-flex align-items-center gap-2">
+
                                 <form action="{{ route('products.destroy', $product->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
-
+                                    
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this product?');"><i class="bi bi-trash"></i> </button>
                                     
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i></a>
+                                </form>
                                     @if (!$descuento->contains('product_id', $product->id))
                                         <!-- Si no tiene descuento, mostrar el botón de descuento del 10% -->
                                         <a href="{{ route('product.descuento', $product->id) }}" class="btn btn-success btn-sm">-10%</a>
                                     @else
-                                        <!-- Si ya tiene descuento, mostrar un mensaje o nada -->
-                                        <span>Descuento aplicado</span>
-                                    @endif
+                                    <form action="{{ route('product.aumento', $product->id) }}" method="post">
+                                        @csrf
                                     
-                                </form>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash">+10%</i></button>
+                                    </form>
+                                    @endif
+                                </div>
+                                    
                             </td>
                         </tr>
                         @empty
