@@ -35,17 +35,9 @@ Asegúrate de tener los siguientes componentes instalados en tu máquina:
 6. *Instalar Dependencias*:
    - Ejecuta los siguientes comandos para instalar las dependencias de PHP y JavaScript:
 
-     composer install
-     npm install
-     npm run build
+     composer install // npm install // npm run build // 
 
-7. *Realizar la Migración de la Base de Datos*:
-   - Ejecuta los siguientes comandos para realizar la migración de la base de datos y poblarla con datos de ejemplo:
-
-     php artisan migrate
-     php artisan db:seed
-
-8. *Configurar el Archivo `.env`*:
+7. *Configurar el Archivo `.env`*:
    - Copia el archivo `.env.example` y renómbralo a `.env`.
 
      cp .env.example .env
@@ -54,10 +46,15 @@ Asegúrate de tener los siguientes componentes instalados en tu máquina:
    - 
      DB_DATABASE=memo
 
-9. *Generar la Clave de la Aplicación*:
+8. *Generar la Clave de la Aplicación*:
    - Establece la clave de la aplicación ejecutando el siguiente comando:
 
      php artisan key:generate --ansi
+
+9. *Realizar la Migración de la Base de Datos*:
+   - Ejecuta los siguientes comandos para realizar la migración de la base de datos y poblarla con datos de ejemplo:
+
+     php artisan migrate // php artisan db:seed
 
 10. *Iniciar el Servidor Local*:
     - Inicia el servidor local de Laravel con el siguiente comando:
