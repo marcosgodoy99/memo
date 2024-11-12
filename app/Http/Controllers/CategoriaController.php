@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Categoria;
+use App\Models\Descuento;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -17,6 +18,7 @@ use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
+
 
 
 class CategoriaController extends Controller
@@ -104,17 +106,27 @@ class CategoriaController extends Controller
         
         $users = Auth::user();
         $categorias= Categoria::latest()->get();
-
+        $clientController = new ClientController();
+        
         if ($products == null) {
             return redirect()->route('dashboard')
-                    ->with('error', 'No se encontro ningun producto con este filtro');
+            ->with('error', 'No se encontro ningun producto con este filtro');
         }else{
+            $images = $clientController->showCategoryImages();
+
+            $product = Product::where('name', 'like', '%' . $products[0]->name . '%')
+                  ->orderBy('name', 'asc')
+                  ->paginate(10);
+            $descuento = Descuento::whereIn('product_id', $product->pluck('id'))->get();
+            
             $mensaje= $products[0]->nombre_categoria;
             return view('dashboard',[ 
                 'products' => $products,
                 'users' => $users,
                 'categorias'=> $categorias,
+                'descuento'=> $descuento,
                 'mensaje' => $mensaje,
+                'images' => $images,
             ]);
         }
     }

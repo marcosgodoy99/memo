@@ -37,8 +37,8 @@ Route::get('/dashboard', function () {
 
     $users = Auth::user();
     $categorias= Categoria::latest()->get();
-    $clientController = new ClientController();
     
+    $clientController = new ClientController();
     $images = $clientController->showCategoryImages();
 
     $products = Product::latest()->get();
