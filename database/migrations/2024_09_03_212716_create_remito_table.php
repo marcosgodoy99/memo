@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('numberRemito');
             $table->string('nameClient');
             $table->string('address');
-            $table->integer('cuit');
+            $table->string('cuit');
             $table->foreignId('users_id')->constrained()->onDelete('cascade');
         });
     }

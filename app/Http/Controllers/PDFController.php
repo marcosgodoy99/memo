@@ -129,46 +129,42 @@ class PDFController extends Controller
             ->where('users_id', $userId)
             ->max('id');
     
-        // Crear las líneas del remito sin duplicar
-        foreach ($dataConsulta as $order) {
-            $request[] = [
-                'quantity' => $order->quantity,
-                'product' => $order->name,
-                'idProduct' => $order->products_id,
-                'remito_id' => $idRemito,
-                'price' => $order->price,
-                'subtotal' => $order->precio_orden,
-            ];
-        
-        $product=DB::SELECT('SELECT stock
-        from products
-        where id = :idProduct',['idProduct' => $order->products_id]);
+            $request = []; // Inicializar el array fuera del bucle
 
-            if ($product) {
-                $currentStock = $product[0]->stock;
-
-                // Calcula el nuevo stock
-                $newStock = $currentStock - $order->quantity;
-
-                // Asegúrate de que no estés restando más de lo que hay en stock
-                if ($newStock < 0) {
-                    return response()->json(['error' => 'No hay suficiente stock para el producto: ' . $order->name], 400);
-                }
-
-                // Actualiza el stock en la base de datos
-                DB::update('UPDATE products SET stock = :newStock WHERE id = :idProduct', [
-                    'newStock' => $newStock,
+            foreach ($dataConsulta as $order) {
+                $request[] = [
+                    'quantity' => $order->quantity,
+                    'product' => $order->name,
                     'idProduct' => $order->products_id,
-                ]);
-        
-
+                    'remito_id' => $idRemito,
+                    'price' => $order->price,
+                    'subtotal' => $order->precio_orden,
+                ];
+            
+                $product = DB::SELECT('SELECT stock FROM products WHERE id = :idProduct', ['idProduct' => $order->products_id]);
+            
+                if ($product) {
+                    $currentStock = $product[0]->stock;
+                    $newStock = $currentStock - $order->quantity;
+            
+                    if ($newStock < 0) {
+                        return response()->json(['error' => 'No hay suficiente stock para el producto: ' . $order->name], 400);
+                    }
+            
+                    DB::update('UPDATE products SET stock = :newStock WHERE id = :idProduct', [
+                        'newStock' => $newStock,
+                        'idProduct' => $order->products_id,
+                    ]);
+                }
             }
-    
-        // Inserta las líneas del remito
-        lineasRemito::insert($request);
-    
-        // Eliminar órdenes del usuario
-        DB::delete('DELETE FROM orders WHERE users_id = :userId', ['userId' => $userId]);
-        }
+            
+            // Inserta las líneas del remito fuera del bucle
+            if (!empty($request)) {
+                lineasRemito::insert($request);
+            }
+            
+            // Eliminar órdenes del usuario
+            DB::delete('DELETE FROM orders WHERE users_id = :userId', ['userId' => $userId]);
+            
     }
 }

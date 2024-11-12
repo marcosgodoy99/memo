@@ -30,6 +30,12 @@ class SolicitudController extends Controller
 
     public function store(Request $request)   
     {
+        $request->validate([
+            'username' => 'required|string|max:25',
+            'address' => 'required|string|min:3|max:100',
+            'cuit' => 'required|integer|digits_between:8,11',
+            'phone' => 'required|integer|digits_between:10,13'
+        ]);
         
         Solicitud::create($request->all());
         return redirect()->route('dashboard')

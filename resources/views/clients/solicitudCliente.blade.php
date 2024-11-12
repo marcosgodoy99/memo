@@ -41,7 +41,7 @@
                     <div class="mb-3 row">
                         <label for="cuit" class="col-md-4 col-form-label text-md-end text-start">CUIT/DNI</label>
                             <div class="col-md-6">
-                                <input type="number" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" value="{{ old('cuit') }}">
+                                <input type="number" class="form-control @error('cuit') is-invalid @enderror" id="cuit" name="cuit" pattern="[1-9\s]+" value="{{ old('cuit') }}">
                                 @if ($errors->has('cuit'))
                                 <span class="text-danger">{{ $errors->first('cuit') }}</span>
                                 @endif
