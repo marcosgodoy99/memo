@@ -7,8 +7,12 @@ Este proyecto utiliza Laravel y requiere un entorno de desarrollo adecuado con P
 Asegúrate de tener los siguientes componentes instalados en tu máquina:
 
 - **PHP** versión 8.1 o superior
-- **MySQL** o **MariaDB**
-- **Composer** (para manejar las dependencias de PHP)
+- **Laravel** version 10.21.0 
+- **MySQL**(8.0.30) o **MariaDB** 
+- **Composer** (para manejar las dependencias de PHP, version:2.7.7)
+- **Laragon** version 6.0 220916
+- **Spatie** version 6.7.0
+- **Livewire** version 3.5.4
 - **Node.js** (para manejar las dependencias de JavaScript)
 
 ## Pasos de Instalación
