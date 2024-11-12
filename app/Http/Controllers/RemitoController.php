@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Remito;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -17,12 +18,22 @@ use Carbon\Carbon;
 class RemitoController extends Controller
 {
     public function listaRemito(): View 
-    { 
-        $id=Auth::id();
-        return view('clients.listaRemitos', [
-            'remitos' => Remito::where('users_id', $id)->latest()->paginate(10)
-        ]);
+{ 
+    $id = Auth::id();
+
+    // Verifica si el usuario tiene el rol de 'admin'
+    if (Auth::user()->hasRole('admin')) {
+        // Si el usuario es admin, obtiene todos los remitos
+        $remitos = Remito::latest()->paginate(10);
+    } else {
+        // Si no es admin, solo obtiene los remitos asociados al usuario
+        $remitos = Remito::where('users_id', $id)->latest()->paginate(10);
     }
+
+    return view('clients.listaRemitos', [
+        'remitos' => $remitos
+    ]);
+}
     public function generatePDF($id)
     {
         $lineasRemitos = DB::select(' SELECT *
