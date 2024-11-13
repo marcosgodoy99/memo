@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nameClient');
             $table->string('address');
             $table->string('cuit');
+            $table->string('estado')->nullable();
             $table->foreignId('users_id')->constrained()->onDelete('cascade');
         });
     }

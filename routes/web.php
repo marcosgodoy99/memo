@@ -124,6 +124,7 @@ Route::get('/generate-pdfDowload/{id}', [RemitoController::class, 'generatePDFDe
 Route::get('/clie/image/', [ClientController::class, 'redirect'])->name('clients.imageRedirect');
 Route::get('/dto/{id}',[ProductController::class, 'descuento'])->name('product.descuento');
 Route::post('/aumento/{id}',[ProductController::class, 'aumento'])->name('product.aumento');
+route::get('/estado/{id}',[RemitoController::class, 'estado'])->name('remito.estado');
 
 
     

@@ -14,7 +14,8 @@ class Remito extends Model
         'nameClient',
         'address',
         'cuit',
-        'users_id'
+        'users_id',
+        'estado'
     ];
 
     public function users(){

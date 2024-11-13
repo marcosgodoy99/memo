@@ -138,4 +138,15 @@ class RemitoController extends Controller
         $pdf = PDF::loadView('clients/pdfDocument', $data);
         return $pdf->download('documento_de_prueba.pdf');
     }
+
+    public function estado($id){
+
+        if (Auth::user()->hasRole('admin')) {
+        DB::update('UPDATE remitos SET estado = :newEstado WHERE id = :idRemito', [
+            'newEstado' => 'ENVIADO',
+            'idRemito' => $id,
+        ]);
+            return redirect()->back();
+        }
+    }
 }

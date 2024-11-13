@@ -118,8 +118,9 @@ class PDFController extends Controller
             'numberRemito' => '2',
             'nameClient' => $remito[0]->username,
             'address' => $remito[0]->address,
+            'estado' => 'pendiente',
             'cuit' => $remito[0]->cuit,
-            'users_id' => $remito[0]->users_id
+            'users_id' => $remito[0]->users_id,
         ];
     
         Remito::create($requestClient);
