@@ -12,8 +12,10 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use DB;
+
 
 class RemitoController extends Controller
 {
@@ -139,14 +141,87 @@ class RemitoController extends Controller
         return $pdf->download('documento_de_prueba.pdf');
     }
 
-    public function estado($id){
-
-        if (Auth::user()->hasRole('admin')) {
+    public function estado($id)
+{
+    if (Auth::user()->hasRole('admin')) {
+       
         DB::update('UPDATE remitos SET estado = :newEstado WHERE id = :idRemito', [
             'newEstado' => 'ENVIADO',
             'idRemito' => $id,
         ]);
-            return redirect()->back();
-        }
+       
+        $remito = DB::table('remitos')->where('id', $id)->first();
+        
+        $lineasRemito = DB::table('lineas_remitos')
+        ->join('products', 'lineas_remitos.idProduct', '=', 'products.id')  
+        ->where('lineas_remitos.remito_id', $id)  
+        ->select('lineas_remitos.*', 'products.name as producto_name', 'products.price')  
+        ->get();
+    
+
+        return view('clients.RemitoEdit', compact('remito', 'lineasRemito'));
     }
+
+    
+    return redirect()->back()->with('error', 'No tienes permiso para realizar esta acción');
 }
+
+    
+
+public function update(Request $request, $id)
+{
+    $remito = Remito::findOrFail($id);
+    
+   
+    $lineasRemito = DB::table('lineas_remitos')->where('remito_id', $id)->get();
+
+ 
+    foreach ($request->productos as $productoId => $cantidad) {
+      
+        $producto = Product::findOrFail($productoId); 
+
+        $lineaRemito = $lineasRemito->where('idProduct', $productoId)->first(); 
+
+        if ($lineaRemito) {
+           
+            if ($cantidad == 0) {
+              
+                $producto->stock += $lineaRemito->quantity; 
+                DB::table('lineas_remitos')->where('id', $lineaRemito->id)->delete(); 
+            } else {
+                
+                $producto->stock += $lineaRemito->quantity - $cantidad;
+                DB::table('lineas_remitos')->where('id', $lineaRemito->id)
+                    ->update(['quantity' => $cantidad]);
+            }
+        } else {
+        
+            if ($cantidad > 0) {
+                
+                DB::table('lineas_remitos')->insert([
+                    'remito_id' => $id,
+                    'idProduct' => $productoId, 
+                    'quantity' => $cantidad      
+                ]);
+                
+                $producto->stock -= $cantidad;
+            }
+        }
+
+       
+        $producto->save();
+    }
+
+    $remito->save();
+
+    return redirect()->route('clients.listaRemitos')->with('success', 'Remito actualizado exitosamente');
+}
+
+
+
+
+}
+
+
+
+

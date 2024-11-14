@@ -126,5 +126,5 @@ Route::get('/dto/{id}',[ProductController::class, 'descuento'])->name('product.d
 Route::post('/aumento/{id}',[ProductController::class, 'aumento'])->name('product.aumento');
 route::get('/estado/{id}',[RemitoController::class, 'estado'])->name('remito.estado');
 
-
-    
+Route::get('remitos/{id}/editar', [RemitoController::class, 'edit'])->name('remito.edit');
+Route::put('remitos/{id}', [RemitoController::class, 'update'])->name('remito.update');
