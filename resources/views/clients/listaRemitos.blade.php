@@ -26,8 +26,8 @@
                             <th scope="col">DIRECCION</th>
                             <th scope="col">CUIT</th>
                             <th scope="col">ACCIONES</th>
-                            <th scope="col">ESTADO</th>
-                            <th scope="col">PEDIDO</th>
+                            {{-- <th scope="col">ESTADO</th>
+                            <th scope="col">PEDIDO</th> --}}
                           </tr>
                         </thead>
                         <tbody>
@@ -43,11 +43,11 @@
                                     <a href="{{ route('clients.RemitosPDF', $remito->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i></a>    
 
                                     <a href="{{ route('clients.RemitosPDFDescarga', $remito->id) }}" class="btn btn-success btn-sm"><i class="bi bi-download"></i></a>
-                                </td>
+                                {{-- </td>
                                 <td>{{  $remito->estado }}</td>
-                                <td>
-                                    <a href="{{route('remito.estado', $remito->id)}}">enviar</a>
-                                </td>
+                                <td> --}}
+                                    {{-- <a href="{{route('remito.estado', $remito->id)}}">enviar</a>
+                                </td> --}}
                             </tr>
                             @empty
                                 <td colspan="7">

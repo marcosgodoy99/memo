@@ -27,9 +27,12 @@
                         {{ __('Lista de Clientes') }}
                     </x-nav-link>
 
-                    
                     <x-nav-link :href="route('clients.solicitudAdmin')" :active="request()->routeIs('clients.solicitudAdmin')">
                         {{ __('Lista de Solicitudes') }}
+                    </x-nav-link>
+                    
+                    <x-nav-link :href="route('products.indexCategorias')" :active="request()->routeIs('products.indexCategorias')">
+                        {{ __('Lista de Categorias') }}
                     </x-nav-link>
                     @endcan
                     
@@ -37,9 +40,6 @@
                         {{ __('Lista de Remitos') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('products.indexCategorias')" :active="request()->routeIs('products.indexCategorias')">
-                        {{ __('Lista de Categorias') }}
-                    </x-nav-link>
                     <x-nav-link :href="route('clients.solicitud')" :active="request()->routeIs('clients.solicitud')">
                         {{ __('Solicitar clientes') }}
                     </x-nav-link>
